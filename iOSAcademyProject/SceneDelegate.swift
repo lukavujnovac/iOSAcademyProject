@@ -38,30 +38,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         return UINavigationController(rootViewController: vc)
     }
-//    
-//    func createSearchNavigationViewController() -> UINavigationController {
-//        let searchVC = SearchVC()
-//        searchVC.title = "Search"
-//        searchVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-//        
-//        return UINavigationController(rootViewController: searchVC)
-//    }
-//    
-//    func crateProfileNavigationViewController() -> UINavigationController {
-//        let profileVC = ProfileVC()
-//        profileVC.title = "Profile"
-//        profileVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-//        
-//        return UINavigationController(rootViewController: profileVC)
-//    }
-//
-//    func createGitHubUsersViewController() -> UINavigationController {
-//        let gitHubUsersVC = GitHubUsersVC()
-//        gitHubUsersVC.title = "Search Users"
-//        gitHubUsersVC.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
-//        
-//        return UINavigationController(rootViewController: gitHubUsersVC)
-//    }
     
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
