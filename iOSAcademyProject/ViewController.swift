@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import SnapKit
 
 class ViewController: UIViewController {
     
@@ -61,15 +62,16 @@ class ViewController: UIViewController {
         
         return button
     }() 
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPurple
         
         addViews()
-        configureButton()
+        configureButton() 
+        assignbackground()
         
         if FirebaseAuth.Auth.auth().currentUser != nil {
+            view.backgroundColor = .systemBlue
             label.isHidden = true
             button.isHidden = true
             emailField.isHidden = true
@@ -78,6 +80,8 @@ class ViewController: UIViewController {
             signOutButton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
             signOutButton.addTarget(self, action: #selector(logOutTapped), for: .touchUpInside)
         }
+        
+        configureConstraints()
     }
     
     @objc private func logOutTapped() {
@@ -95,23 +99,53 @@ class ViewController: UIViewController {
         }
     }
     
+    func assignbackground(){
+        let background = UIImage(named: "nba")
+        
+        var imageView : UIImageView!
+        imageView = UIImageView(frame: view.bounds)
+        imageView.contentMode =  UIView.ContentMode.scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.image = background
+        imageView.center = view.center
+        view.addSubview(imageView)
+        self.view.sendSubviewToBack(imageView)
+        
+        imageView.makeBlurImage(targetImageView: imageView)
+    }
+    
     private func configureButton() {
         button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    private func configureConstraints() {
+        label.snp.makeConstraints{
+            $0.centerX.equalToSuperview()
+            $0.top.equalToSuperview().offset(70)
+            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.height.equalTo(50)
+        }
         
-        label.frame = CGRect(x: 0, y: 100, width: view.frame.size.width, height: 80)
-        emailField.frame = CGRect(x: 20, y: label.frame.origin.y + label.frame.size.height+10,
-                                  width: view.frame.size.width-40,
-                                  height: 50)
-        passwordField.frame = CGRect(x: 20, y: emailField.frame.origin.y + label.frame.size.height+10,
-                                     width: view.frame.size.width-40,
-                                     height: 50)
-        button.frame = CGRect(x: 20, y: passwordField.frame.origin.y + label.frame.size.height+30,
-                              width: view.frame.size.width-40,
-                              height: 52)
+        emailField.snp.makeConstraints { 
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(label.snp.bottom).offset(18)
+            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.height.equalTo(50)
+        }
+        
+        passwordField.snp.makeConstraints { 
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(emailField.snp.bottom).offset(18)
+            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.height.equalTo(50)
+        }
+        
+        button.snp.makeConstraints { 
+            $0.centerX.equalToSuperview()
+            $0.top.equalTo(passwordField.snp.bottom).offset(36)
+            $0.leading.trailing.equalToSuperview().inset(18)
+            $0.height.equalTo(50)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -128,7 +162,7 @@ class ViewController: UIViewController {
         view.addSubview(passwordField)
         view.addSubview(signOutButton)
     }
-
+    
     @objc private func didTapButton() {
         print("tap")
         guard let email = emailField.text, !email.isEmpty, 
@@ -155,7 +189,7 @@ class ViewController: UIViewController {
             strongSelf.emailField.resignFirstResponder()
             strongSelf.passwordField.resignFirstResponder()
         }
-           
+        
     }
     
     func showCreateAccount(email: String, password: String) {
@@ -186,4 +220,17 @@ class ViewController: UIViewController {
         
         present(alert, animated: true)
     } 
+}
+
+extension UIImageView
+{
+    func makeBlurImage(targetImageView:UIImageView?)
+    {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = targetImageView!.bounds
+
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // for supporting device rotation
+        targetImageView?.addSubview(blurEffectView)
+    }
 }
