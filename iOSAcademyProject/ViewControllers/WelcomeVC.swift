@@ -65,6 +65,7 @@ class WelcomeVC: UIViewController {
         configureConstraints()
         assignbackground()
         configureLogInButton()
+        configureSkipButton()
         view.backgroundColor = .systemBlue
     }
     
@@ -87,6 +88,18 @@ class WelcomeVC: UIViewController {
             
         }
         self.navigationController?.pushViewController(authVC, animated: true)
+    }
+    
+    private func configureSkipButton() {
+        skipButton.addTarget(self, action: #selector(didTapSkip), for: .touchUpInside)
+    }
+    
+    @objc func didTapSkip() {
+        let homeVC = ViewController()
+        homeVC.modalPresentationStyle = .fullScreen
+        present(homeVC, animated: true)
+        
+        UserDefaults.standard.setIsLoggedIn(value: true)
     }
     
     private func configureConstraints() {
