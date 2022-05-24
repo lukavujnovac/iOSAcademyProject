@@ -26,16 +26,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [createVC()]
+        tabBar.viewControllers = [createWelcomeVC()]
         tabBar.tabBar.tintColor = .systemPink
         
         return tabBar
     }
     
-    func createVC() -> UINavigationController {
-        let vc = ViewController()
-        vc.title = "Main"
+    func createAuthVC() -> UINavigationController {
+        let vc = AuthVC()
         vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+        return UINavigationController(rootViewController: vc)
+    }
+    
+    func createWelcomeVC() -> UINavigationController {
+        let vc = WelcomeVC()
         
         return UINavigationController(rootViewController: vc)
     }
