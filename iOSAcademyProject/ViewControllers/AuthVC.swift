@@ -19,7 +19,9 @@ class AuthVC: UIViewController {
         emailField.layer.borderColor = UIColor.black.cgColor
         emailField.backgroundColor = .white
         emailField.leftViewMode = .always
-        emailField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        emailField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 18, height: 0))
+        emailField.layer.cornerRadius = 10
+        emailField.autocorrectionType = .no
         
         return emailField
     }() 
@@ -32,16 +34,19 @@ class AuthVC: UIViewController {
         passwordField.layer.borderColor = UIColor.black.cgColor
         passwordField.backgroundColor = .white
         passwordField.leftViewMode = .always
-        passwordField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: 0))
+        passwordField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 18, height: 0))
+        passwordField.layer.cornerRadius = 10
+        passwordField.autocorrectionType = .no
         
         return passwordField
     }() 
     
-    private let button: UIButton = {
+    lazy private var button: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemGreen
         button.setTitleColor(.white, for: .normal)
         button.setTitle("Continue", for: .normal)
+        button.layer.cornerRadius = 10
         
         return button
     }() 
@@ -55,15 +60,6 @@ class AuthVC: UIViewController {
         return label
     }() 
     
-//    private let signOutButton: UIButton = {
-//        let button = UIButton()
-//        button.backgroundColor = .systemGreen
-//        button.setTitleColor(.white, for: .normal)
-//        button.setTitle("Log Out", for: .normal)
-//        
-//        return button
-//    }() 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -72,17 +68,6 @@ class AuthVC: UIViewController {
         assignbackground()
         
         self.tabBarController?.tabBar.isHidden = true
-//        if FirebaseAuth.Auth.auth().currentUser != nil {
-//            view.backgroundColor = .systemBlue
-//            label.isHidden = true
-//            button.isHidden = true
-//            emailField.isHidden = true
-//            passwordField.isHidden = true
-//            
-//        }
-        
-//        signOutButton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
-//        signOutButton.addTarget(self, action: #selector(logOutTapped), for: .touchUpInside)
         
         configureConstraints()
     }
@@ -93,21 +78,6 @@ class AuthVC: UIViewController {
             emailField.becomeFirstResponder()
         }
     }
-    
-//    @objc private func logOutTapped() {
-//        do {
-//            try FirebaseAuth.Auth.auth().signOut()
-//            
-////            label.isHidden = false
-////            button.isHidden = false
-////            emailField.isHidden = false
-////            passwordField.isHidden = false
-////            
-////            signOutButton.removeFromSuperview()
-//        }catch{
-//            print("An error occured signin out")
-//        }
-//    }
     
     private func assignbackground(){
         let background = UIImage(named: "nba")
@@ -140,7 +110,18 @@ class AuthVC: UIViewController {
         view.addSubview(label)
         view.addSubview(emailField)
         view.addSubview(passwordField)
-//        view.addSubview(signOutButton)
+    }
+    
+    func finishLoggingIn() {
+        let appDelegate  = UIApplication.shared.delegate as! AppDelegate
+
+        let rootVC = appDelegate.window?.rootViewController 
+        guard let mainNavigationController = rootVC as? MainNavigationController else {return}
+        
+        mainNavigationController.viewControllers = [ViewController()]
+        
+        UserDefaults.standard.setIsLoggedIn(value: true)
+        dismiss(animated: true)
     }
     
     @objc private func didTapButton() {
@@ -148,7 +129,7 @@ class AuthVC: UIViewController {
         guard let email = emailField.text, !email.isEmpty, 
                 let password = passwordField.text, !password.isEmpty  else {
             
-            print("missing field data")
+            print("missing field data, password must be atleast 6 characters long")
             return
         }
         
@@ -159,18 +140,17 @@ class AuthVC: UIViewController {
                 strongSelf.showCreateAccount(email: email, password: password)
                 return
             }
-            
             print("you have signed in")
-//            strongSelf.label.isHidden = true
-//            strongSelf.emailField.isHidden = true
-//            strongSelf.passwordField.isHidden = true
-//            strongSelf.button.isHidden = true
-            
             strongSelf.emailField.resignFirstResponder()
             strongSelf.passwordField.resignFirstResponder()
             
+            UserDefaults.standard.setIsLoggedIn(value: true)
+            
             let vc = ViewController()
-            strongSelf.navigationController?.pushViewController(vc, animated: true)
+            vc.modalPresentationStyle = .fullScreen
+            strongSelf.present(vc, animated: true)
+            
+            strongSelf.finishLoggingIn()
         }
         
     }
@@ -187,16 +167,14 @@ class AuthVC: UIViewController {
                 }
                 
                 print("you have signed in")
-//                strongSelf.label.isHidden = true
-//                strongSelf.emailField.isHidden = true
-//                strongSelf.passwordField.isHidden = true
-//                strongSelf.button.isHidden = true
                 
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
                 
                 let vc = ViewController()
                 strongSelf.navigationController?.pushViewController(vc, animated: true)
+                
+                UserDefaults.standard.setIsLoggedIn(value: true)
             }
         }))
         

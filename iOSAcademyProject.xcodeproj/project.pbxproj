@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		5F2AFA0C283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AFA0B283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift */; };
 		5F2AFA0E283D652100EBA6E8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AFA0D283D652100EBA6E8 /* ViewController.swift */; };
+		5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */; };
+		5F2AFA12283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AFA11283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift */; };
 		5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7462838E8B7009704CE /* AppDelegate.swift */; };
 		5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7482838E8B7009704CE /* SceneDelegate.swift */; };
 		5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B74A2838E8B7009704CE /* AuthVC.swift */; };
@@ -24,6 +26,8 @@
 /* Begin PBXFileReference section */
 		5F2AFA0B283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Exstenstions.swift"; sourceTree = "<group>"; };
 		5F2AFA0D283D652100EBA6E8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
+		5F2AFA11283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Helpers.swift"; sourceTree = "<group>"; };
 		5F61B7432838E8B7009704CE /* iOSAcademyProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAcademyProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F61B7462838E8B7009704CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F61B7482838E8B7009704CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F2AFA13283D81F700EBA6E8 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */,
+				5F61B74A2838E8B7009704CE /* AuthVC.swift */,
+				5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */,
+				5F2AFA0D283D652100EBA6E8 /* ViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		5F2AFA14283D820000EBA6E8 /* Extenstions */ = {
+			isa = PBXGroup;
+			children = (
+				5F2AFA0B283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift */,
+				5F2AFA11283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift */,
+			);
+			path = Extenstions;
+			sourceTree = "<group>";
+		};
+		5F2AFA15283D820800EBA6E8 /* initialization */ = {
+			isa = PBXGroup;
+			children = (
+				5F61B7462838E8B7009704CE /* AppDelegate.swift */,
+				5F61B7482838E8B7009704CE /* SceneDelegate.swift */,
+			);
+			path = initialization;
+			sourceTree = "<group>";
+		};
 		5F61B73A2838E8B7009704CE = {
 			isa = PBXGroup;
 			children = (
@@ -68,17 +101,14 @@
 		5F61B7452838E8B7009704CE /* iOSAcademyProject */ = {
 			isa = PBXGroup;
 			children = (
-				5F61B7462838E8B7009704CE /* AppDelegate.swift */,
-				5F61B7482838E8B7009704CE /* SceneDelegate.swift */,
-				5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */,
-				5F61B74A2838E8B7009704CE /* AuthVC.swift */,
-				5F2AFA0D283D652100EBA6E8 /* ViewController.swift */,
-				5F2AFA0B283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift */,
+				5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */,
+				5F61B7542838E8B8009704CE /* Info.plist */,
+				5F2AFA15283D820800EBA6E8 /* initialization */,
+				5F2AFA13283D81F700EBA6E8 /* ViewControllers */,
+				5F2AFA14283D820000EBA6E8 /* Extenstions */,
 				5F61B74C2838E8B7009704CE /* Main.storyboard */,
 				5F61B74F2838E8B8009704CE /* Assets.xcassets */,
 				5F61B7512838E8B8009704CE /* LaunchScreen.storyboard */,
-				5F61B7542838E8B8009704CE /* Info.plist */,
-				5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */,
 			);
 			path = iOSAcademyProject;
 			sourceTree = "<group>";
@@ -165,8 +195,10 @@
 			files = (
 				5F2AFA0E283D652100EBA6E8 /* ViewController.swift in Sources */,
 				5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */,
+				5F2AFA12283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift in Sources */,
 				5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */,
 				5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */,
+				5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */,
 				5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */,
 				5F2AFA0C283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift in Sources */,
 			);
