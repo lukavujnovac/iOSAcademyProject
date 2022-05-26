@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import SnapKit
+import SwiftUI
 
 class AuthVC: UIViewController {
     
@@ -104,7 +105,7 @@ class AuthVC: UIViewController {
         configurePasswordFieldConstraints()
         configureButtonConstraints()
     }
-
+    
     private func addViews() {
         view.addSubview(button)
         view.addSubview(label)
@@ -114,11 +115,11 @@ class AuthVC: UIViewController {
     
     func finishLoggingIn() {
         let appDelegate  = UIApplication.shared.delegate as! AppDelegate
-
+        
         let rootVC = appDelegate.window?.rootViewController 
         guard let mainNavigationController = rootVC as? MainNavigationController else {return}
         
-        mainNavigationController.viewControllers = [ViewController()]
+        mainNavigationController.viewControllers = [FavouritesViewController()]
         
         UserDefaults.standard.setIsLoggedIn(value: true)
         dismiss(animated: true)
@@ -146,7 +147,8 @@ class AuthVC: UIViewController {
             
             UserDefaults.standard.setIsLoggedIn(value: true)
             
-            let vc = ViewController()
+            let vc = FavouritesViewController()
+            
             vc.modalPresentationStyle = .fullScreen
             strongSelf.present(vc, animated: true)
             
@@ -171,7 +173,7 @@ class AuthVC: UIViewController {
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
                 
-                let vc = ViewController()
+                let vc = FavouritesViewController()
                 strongSelf.navigationController?.pushViewController(vc, animated: true)
                 
                 UserDefaults.standard.setIsLoggedIn(value: true)
@@ -223,8 +225,4 @@ private extension AuthVC {
             $0.height.equalTo(50)
         }
     }
-}
-
-private extension Auth {
-    
 }

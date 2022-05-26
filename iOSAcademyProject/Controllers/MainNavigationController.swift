@@ -14,7 +14,7 @@ class MainNavigationController: UINavigationController {
         view.backgroundColor = .systemBackground
         
         if isLoggedIn() {
-            let vc = ViewController()
+            let vc = FavouritesViewController()
             viewControllers = [vc]
         }else {
             perform(#selector(showWelcomeVC), with: nil, afterDelay: 0.01)

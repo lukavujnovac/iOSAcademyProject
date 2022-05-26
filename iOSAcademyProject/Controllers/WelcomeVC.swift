@@ -95,7 +95,7 @@ class WelcomeVC: UIViewController {
     }
     
     @objc func didTapSkip() {
-        let homeVC = ViewController()
+        let homeVC = FavouritesViewController()
         homeVC.modalPresentationStyle = .fullScreen
         present(homeVC, animated: true)
         
