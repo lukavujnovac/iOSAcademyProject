@@ -35,7 +35,7 @@ class TableCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        myImageView.frame = CGRect(x: 5, y: 5, width: 80, height: 80)
+        myImageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-16, height: contentView.frame.size.height-5-50)
         myLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-50, width: contentView.frame.size.width-16, height: 16)
     }
     

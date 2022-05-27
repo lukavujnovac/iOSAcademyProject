@@ -24,6 +24,7 @@
 		5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */; };
 		5FB10DCB283B83B300FEB658 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */; };
 		5FD42E05283AD13700A63FCC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD42E04283AD13700A63FCC /* FirebaseAuth */; };
+		5FF7A1812841717F004017B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF7A1802841717F004017B9 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		5F61B7542838E8B8009704CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5FF7A1802841717F004017B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */,
 				5F61B74A2838E8B7009704CE /* AuthVC.swift */,
 				5F2AFA0D283D652100EBA6E8 /* FavouritesViewController.swift */,
+				5FF7A1802841717F004017B9 /* ViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -224,6 +227,7 @@
 				5F2AFA12283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift in Sources */,
 				5F3E2FC12840245500AEB2EF /* TableCollectionViewCell.swift in Sources */,
 				5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */,
+				5FF7A1812841717F004017B9 /* ViewController.swift in Sources */,
 				5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */,
 				5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */,
 				5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */,
