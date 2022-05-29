@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreMedia
 
 protocol CollectionTableViewCellDelegate: AnyObject {
     func didSelectItem(with model: CollectionTableCellModel)

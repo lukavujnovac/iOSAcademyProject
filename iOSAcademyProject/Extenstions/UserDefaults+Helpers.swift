@@ -16,4 +16,12 @@ extension UserDefaults {
     func isLoggedIn() -> Bool {
         return bool(forKey: "isLoggedIn")
     }
+    
+    func favoriteTeams() -> [String] {
+        return array(forKey: "favoriteTeams")  as! [String]
+    }
+    
+    func resetFavoriteTeams() {
+        return removeObject(forKey: "favoriteTeams")
+    }
 }

@@ -148,9 +148,10 @@ class AuthVC: UIViewController {
             UserDefaults.standard.setIsLoggedIn(value: true)
             
             let vc = FavouritesViewController()
-            
-            vc.modalPresentationStyle = .fullScreen
-            strongSelf.present(vc, animated: true)
+            let navigationController = UINavigationController(rootViewController: vc)
+            vc.navigationController?.navigationBar.barStyle = .default
+            navigationController.modalPresentationStyle = .fullScreen
+            strongSelf.present(navigationController, animated: true)
             
             strongSelf.finishLoggingIn()
         }

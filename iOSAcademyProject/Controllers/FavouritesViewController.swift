@@ -29,9 +29,8 @@ class FavouritesViewController: UIViewController {
         return table
     }()
     
-    private var models = [CellModel]()
-    
-    private var favoriteTeams = [CellModel]()
+    var models = MockData.models
+    var favoriteTeams = MockData.favoriteTeams
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,22 +38,20 @@ class FavouritesViewController: UIViewController {
         self.navigationItem.setHidesBackButton(true, animated: true)
         
         setUpModels()
+        configureNavigationItems()
         table.frame = CGRect(x: 10, y: 200, width: view.bounds.size.width, height: 200)
         table.separatorStyle = .none
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Log Out", style: .done, target: self, action: #selector(logOutTapped))
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continue", style: .plain, target: self, action: #selector(continueTapped))
-        
         addViews()
-        configureConstraints()
         table.delegate = self
         table.dataSource = self
-//        signOutButton.frame = CGRect(x: 20, y: 150, width: view.frame.size.width-40, height: 52)
-//        signOutButton.addTarget(self, action: #selector(logOutTapped), for: .touchUpInside)
     }
     
-    
+    private func configureNavigationItems() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset Favorite Teams", style: .done, target: self, action: #selector(resetTapped))
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continue", style: .plain, target: self, action: #selector(continueTapped))
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -63,18 +60,6 @@ class FavouritesViewController: UIViewController {
     
     private func addViews() {
         view.addSubview(table)
-//        view.addSubview(titleLabel)
-    }
-    
-    private func configureConstraints() {
-//        titleLabel.snp.makeConstraints { 
-//            $0.top.equalToSuperview().offset(100)
-//            $0.leading.equalToSuperview().offset(30)
-//        }
-        
-        table.snp.makeConstraints { 
-            $0.top.equalToSuperview().offset(200)
-        }
     }
     
     fileprivate func isLoggedIn() -> Bool {
@@ -88,18 +73,8 @@ class FavouritesViewController: UIViewController {
         present(vc, animated: true)
     }
     
-    @objc private func logOutTapped() {
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
-            UserDefaults.standard.setIsLoggedIn(value: false)
-            
-            let welcomeVC = WelcomeVC()
-            welcomeVC.modalPresentationStyle = .fullScreen
-            
-            present(welcomeVC, animated: true)
-        }catch{
-            print("An error occured signin out")
-        }
+    @objc private func resetTapped() {
+        UserDefaults.standard.resetFavoriteTeams()
     }
 }
 
@@ -130,6 +105,8 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.identifier, for: indexPath) as! CollectionTableViewCell
                 cell.configure(with: models)
                 cell.delegate = self
+                cell.layer.borderWidth = 2.0
+                cell.layer.borderColor = UIColor.red.cgColor
                 
                 return cell
         }
@@ -138,6 +115,7 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        tableView.deselectRow(at: indexPath, animated: true)
         print("did select normal list item")
+        table.reloadData()
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -154,8 +132,15 @@ extension FavouritesViewController: CollectionTableViewCellDelegate {
     func didSelectItem(with model: CollectionTableCellModel) {
         print("selected \(model.title)")
         
-        favoriteTeams.append(.collectionView(models: [model], rows: 0))
-        print(favoriteTeams)
+        if favoriteTeams.contains(model.title) {
+            return
+        }else {
+            favoriteTeams.append(model.title)
+            
+            UserDefaults.standard.set(favoriteTeams, forKey: "favoriteTeams")
+            UserDefaults.standard.synchronize()
+        }
+        print("favorites: \(favoriteTeams) ")
     }
 }
 
@@ -202,5 +187,4 @@ private extension FavouritesViewController {
                                                CollectionTableCellModel(title: "Rockets", imageName: "rockets")],
                                       rows: 1))
     }
-
 }

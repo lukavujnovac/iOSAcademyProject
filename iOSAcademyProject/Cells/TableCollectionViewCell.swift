@@ -43,4 +43,6 @@ class TableCollectionViewCell: UICollectionViewCell {
         myLabel.text = model.title
         myImageView.image = UIImage(named: model.imageName)
     }
+    
+    
 }
