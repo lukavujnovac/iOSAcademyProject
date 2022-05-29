@@ -186,8 +186,11 @@ class AuthVC: UIViewController {
                 strongSelf.passwordField.resignFirstResponder()
                 
                 let vc = FavouritesViewController()
+                let navigationController = UINavigationController(rootViewController: vc)
                 strongSelf.removeSpinner()
-                strongSelf.navigationController?.pushViewController(vc, animated: true)
+                navigationController.modalPresentationStyle = .fullScreen
+                vc.navigationController?.navigationBar.barStyle = .default
+                strongSelf.present(navigationController, animated: true)
                 
                 UserDefaults.standard.setIsLoggedIn(value: true)
             }

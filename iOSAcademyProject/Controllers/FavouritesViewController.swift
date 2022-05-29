@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseAuth
 import SnapKit
+import SwiftUI
 
 class FavouritesViewController: UIViewController {
     
@@ -31,7 +32,8 @@ class FavouritesViewController: UIViewController {
     
     var models = MockData.models
     var favoriteTeams = MockData.favoriteTeams
-
+    var selectedTeams = [CellModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
@@ -48,9 +50,12 @@ class FavouritesViewController: UIViewController {
     }
     
     private func configureNavigationItems() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset Favorite Teams", style: .done, target: self, action: #selector(resetTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(resetTapped))
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Continue", style: .plain, target: self, action: #selector(continueTapped))
+        let confirmButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(confirmTapped))
+        let continueButton = UIBarButtonItem(image: UIImage(systemName: "arrow.right"), style: .plain, target: self, action: #selector(continueTapped))
+        
+        navigationItem.rightBarButtonItems = [continueButton, confirmButton]
     }
     
     override func viewDidLayoutSubviews() {
@@ -66,6 +71,12 @@ class FavouritesViewController: UIViewController {
         return UserDefaults.standard.isLoggedIn()
     }
     
+    @objc func confirmTapped() {
+        models.append(contentsOf: selectedTeams)
+        table.reloadData()
+    }                             
+    
+    
     @objc func continueTapped() {
         let vc = ViewController()
         vc.modalPresentationStyle = .fullScreen
@@ -75,6 +86,8 @@ class FavouritesViewController: UIViewController {
     
     @objc private func resetTapped() {
         UserDefaults.standard.resetFavoriteTeams()
+        selectedTeams.removeAll()
+        table.reloadData()
     }
 }
 
@@ -111,7 +124,7 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
+        //        tableView.deselectRow(at: indexPath, animated: true)
         print("did select normal list item")
         table.reloadData()
     }
@@ -121,7 +134,7 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
             case .list(_): 
                 return 16
             case .collectionView(_, let rows):
-                return 170 * CGFloat(rows)
+                return 120 * CGFloat(rows)
         }
     }
 }
@@ -134,7 +147,7 @@ extension FavouritesViewController: CollectionTableViewCellDelegate {
             return
         }else {
             favoriteTeams.append(model.title)
-            
+            selectedTeams.append(.collectionView(models: [model], rows: 1))
             UserDefaults.standard.set(favoriteTeams, forKey: "favoriteTeams")
             UserDefaults.standard.synchronize()
         }
@@ -146,7 +159,7 @@ private extension FavouritesViewController {
     func setUpModels() {
         models.append(.list(models: [ListCellModel(title: "What are your favorite NBA teams?")]))
         models.append(.list(models: [ListCellModel(title: "You can choose more than one. ")]))
-        models.append(.list(models: [ListCellModel(title: "")]))
+        models.append(.list(models: [ListCellModel(title: "After selecting click the arrow")]))
         models.append(.list(models: [ListCellModel(title: "Eastern Conference")]))
         
         models.append(.collectionView(models: [CollectionTableCellModel(title: "16", imageName: "heat"), 
@@ -156,7 +169,7 @@ private extension FavouritesViewController {
                                                CollectionTableCellModel(title: "28", imageName: "raptors"),
                                                CollectionTableCellModel(title: "5", imageName: "bulls"),
                                                CollectionTableCellModel(title: "3", imageName: "nets"),
-                                               CollectionTableCellModel(title: "1", imageName: "hawks"),
+                                               CollectionTableCellModel(title: "1", imageName: "Hawks"),
                                                CollectionTableCellModel(title: "6", imageName: "cavaliers"),
                                                CollectionTableCellModel(title: "4", imageName: "hornets"),
                                                CollectionTableCellModel(title: "20", imageName: "knicks"),
@@ -184,5 +197,7 @@ private extension FavouritesViewController {
                                                CollectionTableCellModel(title: "21", imageName: "thunder"),
                                                CollectionTableCellModel(title: "11", imageName: "rockets")],
                                       rows: 1))
+        models.append(.list(models: [ListCellModel(title: "selected favorites")]))
+        
     }
 }

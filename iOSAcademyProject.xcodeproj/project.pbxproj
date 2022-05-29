@@ -16,16 +16,16 @@
 		5F3E2FC42840281000AEB2EF /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3E2FC32840281000AEB2EF /* Models.swift */; };
 		5F4536772843EE9F00CEFCDB /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4536762843EE9F00CEFCDB /* MockData.swift */; };
 		5F45367B2843FEED00CEFCDB /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F45367A2843FEED00CEFCDB /* UIViewController+Extensions.swift */; };
+		5F45367E284408D200CEFCDB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5F45367D284408D200CEFCDB /* SnapKit */; };
 		5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7462838E8B7009704CE /* AppDelegate.swift */; };
 		5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7482838E8B7009704CE /* SceneDelegate.swift */; };
 		5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B74A2838E8B7009704CE /* AuthVC.swift */; };
 		5F61B74E2838E8B7009704CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B74C2838E8B7009704CE /* Main.storyboard */; };
 		5F61B7502838E8B8009704CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B74F2838E8B8009704CE /* Assets.xcassets */; };
 		5F61B7532838E8B8009704CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B7512838E8B8009704CE /* LaunchScreen.storyboard */; };
-		5FB10DC5283B73A200FEB658 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB10DC4283B73A200FEB658 /* SnapKit */; };
+		5FB103A428440BE4009D59CB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB103A328440BE4009D59CB /* FirebaseAuth */; };
 		5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */; };
 		5FB10DCB283B83B300FEB658 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */; };
-		5FD42E05283AD13700A63FCC /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FD42E04283AD13700A63FCC /* FirebaseAuth */; };
 		5FF7A1812841717F004017B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF7A1802841717F004017B9 /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,8 +57,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5FD42E05283AD13700A63FCC /* FirebaseAuth in Frameworks */,
-				5FB10DC5283B73A200FEB658 /* SnapKit in Frameworks */,
+				5F45367E284408D200CEFCDB /* SnapKit in Frameworks */,
+				5FB103A428440BE4009D59CB /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -172,8 +172,8 @@
 			);
 			name = iOSAcademyProject;
 			packageProductDependencies = (
-				5FD42E04283AD13700A63FCC /* FirebaseAuth */,
-				5FB10DC4283B73A200FEB658 /* SnapKit */,
+				5F45367D284408D200CEFCDB /* SnapKit */,
+				5FB103A328440BE4009D59CB /* FirebaseAuth */,
 			);
 			productName = iOSAcademyProject;
 			productReference = 5F61B7432838E8B7009704CE /* iOSAcademyProject.app */;
@@ -204,8 +204,8 @@
 			);
 			mainGroup = 5F61B73A2838E8B7009704CE;
 			packageReferences = (
-				5FD42E03283AD13700A63FCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				5FB10DC3283B73A200FEB658 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				5F45367C284408D200CEFCDB /* XCRemoteSwiftPackageReference "SnapKit" */,
+				5FB103A228440BE4009D59CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 5F61B7442838E8B7009704CE /* Products */;
 			projectDirPath = "";
@@ -466,7 +466,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5FB10DC3283B73A200FEB658 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+		5F45367C284408D200CEFCDB /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -474,25 +474,25 @@
 				kind = branch;
 			};
 		};
-		5FD42E03283AD13700A63FCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+		5FB103A228440BE4009D59CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 9.0.0;
+				branch = master;
+				kind = branch;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		5FB10DC4283B73A200FEB658 /* SnapKit */ = {
+		5F45367D284408D200CEFCDB /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FB10DC3283B73A200FEB658 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			package = 5F45367C284408D200CEFCDB /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
-		5FD42E04283AD13700A63FCC /* FirebaseAuth */ = {
+		5FB103A328440BE4009D59CB /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5FD42E03283AD13700A63FCC /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			package = 5FB103A228440BE4009D59CB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */

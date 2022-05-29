@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     private let signOutButton: UIButton = {
             let button = UIButton()
-            button.backgroundColor = .systemGreen
+            button.backgroundColor = .systemBlue
             button.setTitleColor(.white, for: .normal)
             button.setTitle("Log Out", for: .normal)
             
@@ -33,12 +33,17 @@ class ViewController: UIViewController {
         signOutButton.addTarget(self, action: #selector(logOutTapped), for: .touchUpInside)
     }
     
-    @objc func logOutTapped() {
-        do {
-            try FirebaseAuth.Auth.auth().signOut()
-            UserDefaults.standard.setIsLoggedIn(value: false)
-        }catch {
-            print("an error occured")
+    @objc private func logOutTapped() {
+            do {
+                try FirebaseAuth.Auth.auth().signOut()
+                UserDefaults.standard.setIsLoggedIn(value: false)
+                
+                let welcomeVC = WelcomeVC()
+                welcomeVC.modalPresentationStyle = .fullScreen
+                
+                present(welcomeVC, animated: true)
+            }catch{
+                print("An error occured signin out")
+            }
         }
-    }
 }

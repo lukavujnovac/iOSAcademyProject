@@ -10,11 +10,11 @@ import UIKit
 class TableCollectionViewCell: UICollectionViewCell {
     static let identifier = "TableCollectionViewCell"
     
-    private let myLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-    }()
+//    private let myLabel: UILabel = {
+//        let label = UILabel()
+//        label.textAlignment = .center
+//        return label
+//    }()
     
     private let myImageView: UIImageView = {
         let iv = UIImageView()
@@ -24,7 +24,7 @@ class TableCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(myLabel)
+//        contentView.addSubview(myLabel)
         contentView.addSubview(myImageView)
     }
     
@@ -35,14 +35,12 @@ class TableCollectionViewCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        myImageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-16, height: contentView.frame.size.height-5-50)
-        myLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-50, width: contentView.frame.size.width-16, height: 16)
+        myImageView.frame = CGRect(x: 5, y: 5, width: contentView.frame.size.width-16, height: contentView.frame.size.height-5)
+//        myLabel.frame = CGRect(x: 5, y: contentView.frame.size.height-50, width: contentView.frame.size.width-16, height: 16)
     }
     
     public func configure(with model: CollectionTableCellModel) {
-        myLabel.text = model.title
+//        myLabel.text = model.title
         myImageView.image = UIImage(named: model.imageName)
     }
-    
-    
 }
