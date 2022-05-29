@@ -105,8 +105,6 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: CollectionTableViewCell.identifier, for: indexPath) as! CollectionTableViewCell
                 cell.configure(with: models)
                 cell.delegate = self
-                cell.layer.borderWidth = 2.0
-                cell.layer.borderColor = UIColor.red.cgColor
                 
                 return cell
         }
@@ -151,40 +149,40 @@ private extension FavouritesViewController {
         models.append(.list(models: [ListCellModel(title: "")]))
         models.append(.list(models: [ListCellModel(title: "Eastern Conference")]))
         
-        models.append(.collectionView(models: [CollectionTableCellModel(title: "Heat", imageName: "heat"), 
-                                               CollectionTableCellModel(title: "Celtics", imageName: "celtics"),
-                                               CollectionTableCellModel(title: "Bucks", imageName: "bucks"),
-                                               CollectionTableCellModel(title: "76ers", imageName: "76ers"),
-                                               CollectionTableCellModel(title: "Raptors", imageName: "raptors"),
-                                               CollectionTableCellModel(title: "Bulls", imageName: "bulls"),
-                                               CollectionTableCellModel(title: "Nets", imageName: "nets"),
-                                               CollectionTableCellModel(title: "Hawks", imageName: "hawks"),
-                                               CollectionTableCellModel(title: "Cavaliers", imageName: "cavaliers"),
-                                               CollectionTableCellModel(title: "Hornets", imageName: "hornets"),
-                                               CollectionTableCellModel(title: "Knicks", imageName: "knicks"),
-                                               CollectionTableCellModel(title: "Wizards", imageName: "wizards"),
-                                               CollectionTableCellModel(title: "Pacers", imageName: "pacers"),
-                                               CollectionTableCellModel(title: "Pistons", imageName: "pistons"),
-                                               CollectionTableCellModel(title: "Magic", imageName: "magic")],
+        models.append(.collectionView(models: [CollectionTableCellModel(title: "16", imageName: "heat"), 
+                                               CollectionTableCellModel(title: "2", imageName: "celtics"),
+                                               CollectionTableCellModel(title: "17", imageName: "bucks"),
+                                               CollectionTableCellModel(title: "23", imageName: "76ers"),
+                                               CollectionTableCellModel(title: "28", imageName: "raptors"),
+                                               CollectionTableCellModel(title: "5", imageName: "bulls"),
+                                               CollectionTableCellModel(title: "3", imageName: "nets"),
+                                               CollectionTableCellModel(title: "1", imageName: "hawks"),
+                                               CollectionTableCellModel(title: "6", imageName: "cavaliers"),
+                                               CollectionTableCellModel(title: "4", imageName: "hornets"),
+                                               CollectionTableCellModel(title: "20", imageName: "knicks"),
+                                               CollectionTableCellModel(title: "30", imageName: "wizards"),
+                                               CollectionTableCellModel(title: "12", imageName: "pacers"),
+                                               CollectionTableCellModel(title: "9", imageName: "pistons"),
+                                               CollectionTableCellModel(title: "22", imageName: "magic")],
                                       rows: 1))
         
         models.append(.list(models: [ListCellModel(title: "Western Conference")]))
         
-        models.append(.collectionView(models: [CollectionTableCellModel(title: "Suns", imageName: "suns"), 
-                                               CollectionTableCellModel(title: "Grizzlies", imageName: "grizzlies"),
-                                               CollectionTableCellModel(title: "Warriors", imageName: "warriors"),
-                                               CollectionTableCellModel(title: "Mavericks", imageName: "mavericks"),
-                                               CollectionTableCellModel(title: "Jazz", imageName: "jazz"),
-                                               CollectionTableCellModel(title: "Nuggets", imageName: "nuggets"),
-                                               CollectionTableCellModel(title: "Timberwolves", imageName: "timberwolves"),
-                                               CollectionTableCellModel(title: "Pelicans", imageName: "pelicans"),
-                                               CollectionTableCellModel(title: "Clippers", imageName: "clippers"),
-                                               CollectionTableCellModel(title: "Spurs", imageName: "spurs"),
-                                               CollectionTableCellModel(title: "Lakers", imageName: "lakers"),
-                                               CollectionTableCellModel(title: "Kings", imageName: "kings"),
-                                               CollectionTableCellModel(title: "Trail Blazers", imageName: "blazers"),
-                                               CollectionTableCellModel(title: "Thunder", imageName: "thunder"),
-                                               CollectionTableCellModel(title: "Rockets", imageName: "rockets")],
+        models.append(.collectionView(models: [CollectionTableCellModel(title: "24", imageName: "suns"), 
+                                               CollectionTableCellModel(title: "15", imageName: "grizzlies"),
+                                               CollectionTableCellModel(title: "10", imageName: "warriors"),
+                                               CollectionTableCellModel(title: "7", imageName: "mavericks"),
+                                               CollectionTableCellModel(title: "29", imageName: "jazz"),
+                                               CollectionTableCellModel(title: "8", imageName: "nuggets"),
+                                               CollectionTableCellModel(title: "18", imageName: "timberwolves"),
+                                               CollectionTableCellModel(title: "19", imageName: "pelicans"),
+                                               CollectionTableCellModel(title: "13", imageName: "clippers"),
+                                               CollectionTableCellModel(title: "27", imageName: "spurs"),
+                                               CollectionTableCellModel(title: "14", imageName: "lakers"),
+                                               CollectionTableCellModel(title: "26", imageName: "kings"),
+                                               CollectionTableCellModel(title: "25", imageName: "blazers"),
+                                               CollectionTableCellModel(title: "21", imageName: "thunder"),
+                                               CollectionTableCellModel(title: "11", imageName: "rockets")],
                                       rows: 1))
     }
 }

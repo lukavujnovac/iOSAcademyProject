@@ -124,13 +124,22 @@ class AuthVC: UIViewController {
         UserDefaults.standard.setIsLoggedIn(value: true)
         dismiss(animated: true)
     }
-    
+
     @objc private func didTapButton() {
-        print("tap")
+        guard let username = emailField.text else {return}
+        guard let password = passwordField.text else {return}
+        
+        if username.contains("@") && password.count >= 6 {
+            self.showSpinner()
+        }else {
+            self.removeSpinner()
+        }
+        
         guard let email = emailField.text, !email.isEmpty, 
                 let password = passwordField.text, !password.isEmpty  else {
             
             print("missing field data, password must be atleast 6 characters long")
+            
             return
         }
         
@@ -151,6 +160,7 @@ class AuthVC: UIViewController {
             let navigationController = UINavigationController(rootViewController: vc)
             vc.navigationController?.navigationBar.barStyle = .default
             navigationController.modalPresentationStyle = .fullScreen
+            strongSelf.removeSpinner()
             strongSelf.present(navigationController, animated: true)
             
             strongSelf.finishLoggingIn()
@@ -165,6 +175,7 @@ class AuthVC: UIViewController {
             FirebaseAuth.Auth.auth().createUser(withEmail: email, password: password) { [weak self] result, error in
                 guard let strongSelf = self else {return}
                 guard error == nil else {
+                    strongSelf.removeSpinner()
                     print("account creation failed")
                     return
                 }
@@ -175,6 +186,7 @@ class AuthVC: UIViewController {
                 strongSelf.passwordField.resignFirstResponder()
                 
                 let vc = FavouritesViewController()
+                strongSelf.removeSpinner()
                 strongSelf.navigationController?.pushViewController(vc, animated: true)
                 
                 UserDefaults.standard.setIsLoggedIn(value: true)
