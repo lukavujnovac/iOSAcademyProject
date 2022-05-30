@@ -20,7 +20,6 @@
 		5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7462838E8B7009704CE /* AppDelegate.swift */; };
 		5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7482838E8B7009704CE /* SceneDelegate.swift */; };
 		5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B74A2838E8B7009704CE /* AuthVC.swift */; };
-		5F61B74E2838E8B7009704CE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B74C2838E8B7009704CE /* Main.storyboard */; };
 		5F61B7502838E8B8009704CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B74F2838E8B8009704CE /* Assets.xcassets */; };
 		5F61B7532838E8B8009704CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B7512838E8B8009704CE /* LaunchScreen.storyboard */; };
 		5FB103A428440BE4009D59CB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB103A328440BE4009D59CB /* FirebaseAuth */; };
@@ -43,7 +42,6 @@
 		5F61B7462838E8B7009704CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F61B7482838E8B7009704CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5F61B74A2838E8B7009704CE /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
-		5F61B74D2838E8B7009704CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5F61B74F2838E8B8009704CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F61B7522838E8B8009704CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F61B7542838E8B8009704CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -149,7 +147,6 @@
 				5F2AFA14283D820000EBA6E8 /* Extenstions */,
 				5F4536752843EE9100CEFCDB /* DataServices */,
 				5F61B74F2838E8B8009704CE /* Assets.xcassets */,
-				5F61B74C2838E8B7009704CE /* Main.storyboard */,
 				5F61B7512838E8B8009704CE /* LaunchScreen.storyboard */,
 			);
 			path = iOSAcademyProject;
@@ -224,7 +221,6 @@
 				5FB10DCB283B83B300FEB658 /* GoogleService-Info.plist in Resources */,
 				5F61B7532838E8B8009704CE /* LaunchScreen.storyboard in Resources */,
 				5F61B7502838E8B8009704CE /* Assets.xcassets in Resources */,
-				5F61B74E2838E8B7009704CE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,14 +251,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		5F61B74C2838E8B7009704CE /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				5F61B74D2838E8B7009704CE /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		5F61B7512838E8B8009704CE /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

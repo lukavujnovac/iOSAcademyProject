@@ -8,7 +8,6 @@
 import UIKit
 import FirebaseAuth
 import SnapKit
-import SwiftUI
 
 class FavouritesViewController: UIViewController {
     
@@ -30,9 +29,13 @@ class FavouritesViewController: UIViewController {
         return table
     }()
     
-    var models = MockData.models
-    var favoriteTeams = MockData.favoriteTeams
-    var selectedTeams = [CellModel]()
+    private var resetButton = UIBarButtonItem()
+    private var confirmButton = UIBarButtonItem()
+    private var continueButton = UIBarButtonItem()
+    
+    private var models = MockData.models
+    private var favoriteTeams = MockData.favoriteTeams
+    private var selectedTeams = [CellModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,11 +53,13 @@ class FavouritesViewController: UIViewController {
     }
     
     private func configureNavigationItems() {
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(resetTapped))
+        resetButton = UIBarButtonItem(title: "Reset", style: .done, target: self, action: #selector(resetTapped))
+        resetButton.isEnabled = false
         
-        let confirmButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(confirmTapped))
+        confirmButton = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(confirmTapped))
         let continueButton = UIBarButtonItem(image: UIImage(systemName: "arrow.right"), style: .plain, target: self, action: #selector(continueTapped))
         
+        navigationItem.leftBarButtonItem = resetButton
         navigationItem.rightBarButtonItems = [continueButton, confirmButton]
     }
     
@@ -71,13 +76,14 @@ class FavouritesViewController: UIViewController {
         return UserDefaults.standard.isLoggedIn()
     }
     
-    @objc func confirmTapped() {
+    @objc private func confirmTapped() {
         models.append(contentsOf: selectedTeams)
         table.reloadData()
+        resetButton.isEnabled = true
+        confirmButton.isEnabled = false
     }                             
     
-    
-    @objc func continueTapped() {
+    @objc private func continueTapped() {
         let vc = ViewController()
         vc.modalPresentationStyle = .fullScreen
         
@@ -86,8 +92,13 @@ class FavouritesViewController: UIViewController {
     
     @objc private func resetTapped() {
         UserDefaults.standard.resetFavoriteTeams()
+        let range = selectedTeams.count
+        models.removeLast(range)
         selectedTeams.removeAll()
         table.reloadData()
+        favoriteTeams.removeAll()
+        resetButton.isEnabled = false
+        confirmButton.isEnabled = true
     }
 }
 

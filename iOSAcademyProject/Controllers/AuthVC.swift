@@ -113,7 +113,7 @@ class AuthVC: UIViewController {
         view.addSubview(passwordField)
     }
     
-    func finishLoggingIn() {
+    private func finishLoggingIn() {
         let appDelegate  = UIApplication.shared.delegate as! AppDelegate
         
         let rootVC = appDelegate.window?.rootViewController 
@@ -168,7 +168,7 @@ class AuthVC: UIViewController {
         
     }
     
-    func showCreateAccount(email: String, password: String) {
+    private func showCreateAccount(email: String, password: String) {
         let alert = UIAlertController(title: "Create Account", message: "Would you like to create an account", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Continue", style: .default, handler: { _ in
