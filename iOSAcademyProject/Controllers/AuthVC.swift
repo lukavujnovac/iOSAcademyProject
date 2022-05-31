@@ -156,7 +156,7 @@ class AuthVC: UIViewController {
             
             UserDefaults.standard.setIsLoggedIn(value: true)
             
-            let vc = FavouritesViewController()
+            let vc = ViewController()
             let navigationController = UINavigationController(rootViewController: vc)
             vc.navigationController?.navigationBar.barStyle = .default
             navigationController.modalPresentationStyle = .fullScreen
@@ -190,7 +190,7 @@ class AuthVC: UIViewController {
                 strongSelf.removeSpinner()
                 navigationController.modalPresentationStyle = .fullScreen
                 vc.navigationController?.navigationBar.barStyle = .default
-                strongSelf.present(navigationController, animated: true)
+                strongSelf.present(vc, animated: true)
                 
                 UserDefaults.standard.setIsLoggedIn(value: true)
             }

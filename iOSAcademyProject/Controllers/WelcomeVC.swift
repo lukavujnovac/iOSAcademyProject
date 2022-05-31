@@ -87,7 +87,7 @@ class WelcomeVC: UIViewController {
         present(authVC, animated: true) { 
             
         }
-        self.navigationController?.pushViewController(authVC, animated: true)
+//        self.navigationController?.pushViewController(authVC, animated: true)
     }
     
     private func configureSkipButton() {
