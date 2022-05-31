@@ -186,9 +186,9 @@ class AuthVC: UIViewController {
                 strongSelf.passwordField.resignFirstResponder()
                 
                 let vc = FavouritesViewController()
-                let navigationController = UINavigationController(rootViewController: vc)
+//                let navigationController = UINavigationController(rootViewController: vc)
                 strongSelf.removeSpinner()
-                navigationController.modalPresentationStyle = .fullScreen
+//                navigationController.modalPresentationStyle = .fullScreen
                 vc.navigationController?.navigationBar.barStyle = .default
                 strongSelf.present(vc, animated: true)
                 
