@@ -25,7 +25,9 @@
 		5FB103A428440BE4009D59CB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB103A328440BE4009D59CB /* FirebaseAuth */; };
 		5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */; };
 		5FB10DCB283B83B300FEB658 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */; };
-		5FF7A1812841717F004017B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FF7A1802841717F004017B9 /* ViewController.swift */; };
+		5FD130062846ADCE001C32F5 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD130052846ADCE001C32F5 /* ExploreVC.swift */; };
+		5FD130082846B1F2001C32F5 /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD130072846B1F2001C32F5 /* ApiCaller.swift */; };
+		5FD1300A2846B77A001C32F5 /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD130092846B77A001C32F5 /* TeamCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +49,9 @@
 		5F61B7542838E8B8009704CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		5FF7A1802841717F004017B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5FD130052846ADCE001C32F5 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
+		5FD130072846B1F2001C32F5 /* ApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCaller.swift; sourceTree = "<group>"; };
+		5FD130092846B77A001C32F5 /* TeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,14 +67,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5F2AFA13283D81F700EBA6E8 /* Controllers */ = {
+		5F0363CB2846AA530059F0B7 /* Authentification vcs */ = {
 			isa = PBXGroup;
 			children = (
-				5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */,
 				5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */,
 				5F61B74A2838E8B7009704CE /* AuthVC.swift */,
 				5F2AFA0D283D652100EBA6E8 /* FavouritesViewController.swift */,
-				5FF7A1802841717F004017B9 /* ViewController.swift */,
+			);
+			path = "Authentification vcs";
+			sourceTree = "<group>";
+		};
+		5F2AFA13283D81F700EBA6E8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				5F0363CB2846AA530059F0B7 /* Authentification vcs */,
+				5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */,
+				5FD130052846ADCE001C32F5 /* ExploreVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -99,6 +111,7 @@
 			children = (
 				5F3E2FBE2840243600AEB2EF /* CollectionTableViewCell.swift */,
 				5F3E2FC02840245500AEB2EF /* TableCollectionViewCell.swift */,
+				5FD130092846B77A001C32F5 /* TeamCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -115,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				5F4536762843EE9F00CEFCDB /* MockData.swift */,
+				5FD130072846B1F2001C32F5 /* ApiCaller.swift */,
 			);
 			path = DataServices;
 			sourceTree = "<group>";
@@ -231,17 +245,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FD1300A2846B77A001C32F5 /* TeamCell.swift in Sources */,
 				5F3E2FC42840281000AEB2EF /* Models.swift in Sources */,
 				5F2AFA0E283D652100EBA6E8 /* FavouritesViewController.swift in Sources */,
 				5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */,
 				5F4536772843EE9F00CEFCDB /* MockData.swift in Sources */,
+				5FD130082846B1F2001C32F5 /* ApiCaller.swift in Sources */,
 				5F2AFA12283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift in Sources */,
 				5F3E2FC12840245500AEB2EF /* TableCollectionViewCell.swift in Sources */,
 				5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */,
-				5FF7A1812841717F004017B9 /* ViewController.swift in Sources */,
 				5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */,
 				5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */,
 				5F45367B2843FEED00CEFCDB /* UIViewController+Extensions.swift in Sources */,
+				5FD130062846ADCE001C32F5 /* ExploreVC.swift in Sources */,
 				5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */,
 				5F3E2FBF2840243600AEB2EF /* CollectionTableViewCell.swift in Sources */,
 				5F2AFA0C283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift in Sources */,
