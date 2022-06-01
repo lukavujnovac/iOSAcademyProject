@@ -9,26 +9,29 @@ import UIKit
 
 class TeamCellViewModel {
     let fullName: String
-    
+    let id: Int
     let imageString: String
+    let conference: String
     
-    init(fullName: String, imageName: String) {
+    init(fullName: String, imageName: String, id: Int, conference: String) {
         self.fullName = fullName
         self.imageString = imageName
+        self.id = id
+        self.conference = conference
     }
 }
 
 class TeamCell: UITableViewCell {
     static let identifier = "TeamCell"
     
-    private let teamLabel: UILabel = {
+    let teamLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         
         return label
     }()
     
-    private let teamImage: UIImageView = {
+    let teamImage: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         

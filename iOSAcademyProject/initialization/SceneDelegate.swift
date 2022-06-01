@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = createMainVC()
+        window?.rootViewController = createTabBar()
         window?.makeKeyAndVisible()
     }
     
@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
         tabBar.viewControllers = [createExploreVC()]
-        tabBar.tabBar.tintColor = .black
+        tabBar.tabBar.tintColor = .systemPink
         
         return tabBar
     }
@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createExploreVC() -> UINavigationController {
         let vc = ExploreVC()
-        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
+        vc.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "basketball"), tag: 0)
         
         return UINavigationController(rootViewController: vc)
     }

@@ -16,24 +16,47 @@ class ExploreVC: UIViewController{
         return table
     }()
     
+    private lazy var searchController: UISearchController = {
+        let s = UISearchController(searchResultsController: nil)
+        s.searchResultsUpdater = self
+        s.obscuresBackgroundDuringPresentation = false
+        s.searchBar.placeholder = "Search"
+        s.searchBar.sizeToFit()
+        s.searchBar.searchBarStyle = .prominent
+        s.searchBar.scopeButtonTitles = ["All", "West", "East"]
+        s.searchBar.delegate = self
+        s.searchBar.backgroundColor = .systemBackground
+        
+        return s
+    }()
+    
     private var viewModels = [TeamCellViewModel]()
     private var teams = [Team]()
+    private var filteredTeams = [Team]()
+    
+    private var showingTeams: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        UserDefaults.standard.changeShowingTeams(value: showingTeams)
         view.backgroundColor = .systemBackground
+        navigationItem.searchController = searchController
         
         view.addSubview(table)
         table.delegate = self
         table.dataSource = self
+        showSpinner()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Change List", style: .done, target: self, action: #selector(changeListTapped))
         
         ApiCaller.shared.getTeams { [weak self] result in
             switch result {
                 case .success(let teams):
                     self?.teams = teams
-                    self?.viewModels = teams.compactMap({TeamCellViewModel(fullName: $0.full_name, imageName: $0.name.lowercased())})
+                    self?.viewModels = teams.compactMap({TeamCellViewModel(fullName: $0.full_name, imageName: $0.name.lowercased(), id: $0.id, conference: $0.conference)})
                     DispatchQueue.main.async {
                         self?.table.reloadData()
+                        self?.removeSpinner()
                     }
                 case .failure(let error):
                     print(error)
@@ -41,21 +64,40 @@ class ExploreVC: UIViewController{
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         table.frame = view.bounds
     }
+    
+    @objc private func changeListTapped() {
+        showingTeams.toggle()
+        UserDefaults.standard.changeShowingTeams(value: showingTeams)
+    }
 }
 
 extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering() {return filteredTeams.count}
         return viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = table.dequeueReusableCell(withIdentifier: TeamCell.identifier, for: indexPath) as? TeamCell else {fatalError()}
-        cell.configure(with: viewModels[indexPath.row])
+        
+        let currentTeam: Team 
+        if isFiltering() {
+            currentTeam = filteredTeams[indexPath.row]
+        }else {
+            currentTeam = teams[indexPath.row]
+        }
+        
+        cell.teamLabel.text = currentTeam.full_name
+        cell.teamImage.image = UIImage(named: currentTeam.name.lowercased())
         
         return cell
     }
@@ -63,9 +105,47 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
         let viewModel = viewModels[indexPath.row]
+        print(viewModel.id)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
     }
 }
+
+extension ExploreVC: UISearchBarDelegate, UISearchResultsUpdating {
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        filterContentForSearchText(searchText: searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+    }
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
+        
+        filterContentForSearchText(searchText: searchBar.text!, scope: scope)
+    }
+    
+    private func filterContentForSearchText(searchText: String, scope: String = "All") {
+        filteredTeams = teams.filter({ team in
+            let doesCategoryMatch = (scope == "All") || (team.conference == scope) 
+            
+            if isSearchBarEmpty() {
+                return doesCategoryMatch
+            }else {
+                return doesCategoryMatch && team.full_name.lowercased().contains(searchText.lowercased())
+            }
+        })
+        
+        table.reloadData()
+    }
+    
+    private func isSearchBarEmpty() -> Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    
+    private func isFiltering() -> Bool {
+        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
+        return searchController.isActive && (!isSearchBarEmpty() || searchBarScopeIsFiltering)
+    }
+} 
