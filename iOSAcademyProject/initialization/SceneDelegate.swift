@@ -24,13 +24,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
     }
     
-    fileprivate func isLoggedIn() -> Bool {
-        return UserDefaults.standard.isLoggedIn()
-    }
-    
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [createExploreVC()]
+        tabBar.viewControllers = [createMainVC(), createPlayerListVC()]
         tabBar.tabBar.tintColor = .systemPink
         
         return tabBar
@@ -43,15 +39,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createMainVC() -> UINavigationController {
-        let vc = isLoggedIn() ? createTabBar() : createWelcomeVC()
+        let vc = MainNavigationController()
+        vc.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "basketball"), tag: 0)
+        
+        return vc
+    }
+    
+    func createPlayerListVC() -> UINavigationController {
+        let vc = PlayerListVC()
+        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
         
         return UINavigationController(rootViewController: vc)
     }
     
-    func createExploreVC() -> UINavigationController {
-        let vc = ExploreVC()
-        vc.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "basketball"), tag: 0)
-        
+    func createVC() -> UINavigationController{
+        let vc = ViewController()
+        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
         return UINavigationController(rootViewController: vc)
     }
     

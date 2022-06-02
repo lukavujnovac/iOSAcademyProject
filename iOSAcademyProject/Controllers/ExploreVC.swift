@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class ExploreVC: UIViewController{
     
@@ -30,6 +31,14 @@ class ExploreVC: UIViewController{
         return s
     }()
     
+    private let signOutButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("Log Out", for: .normal)
+        
+        return button
+    }() 
     private var viewModels = [TeamCellViewModel]()
     private var teams = [Team]()
     private var filteredTeams = [Team]()
@@ -48,12 +57,13 @@ class ExploreVC: UIViewController{
         showSpinner()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Change List", style: .done, target: self, action: #selector(changeListTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOutTapped))
         
         ApiCaller.shared.getTeams { [weak self] result in
             switch result {
                 case .success(let teams):
                     self?.teams = teams
-                    self?.viewModels = teams.compactMap({TeamCellViewModel(fullName: $0.full_name, imageName: $0.name.lowercased(), id: $0.id, conference: $0.conference)})
+                    self?.viewModels = teams.compactMap({TeamCellViewModel(fullName: $0.fullName, imageName: $0.name.lowercased(), id: $0.id, conference: $0.conference)})
                     DispatchQueue.main.async {
                         self?.table.reloadData()
                         self?.removeSpinner()
@@ -96,7 +106,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
             currentTeam = teams[indexPath.row]
         }
         
-        cell.teamLabel.text = currentTeam.full_name
+        cell.teamLabel.text = currentTeam.fullName
         cell.teamImage.image = UIImage(named: currentTeam.name.lowercased())
         
         return cell
@@ -133,7 +143,7 @@ extension ExploreVC: UISearchBarDelegate, UISearchResultsUpdating {
             if isSearchBarEmpty() {
                 return doesCategoryMatch
             }else {
-                return doesCategoryMatch && team.full_name.lowercased().contains(searchText.lowercased())
+                return doesCategoryMatch && team.fullName.lowercased().contains(searchText.lowercased())
             }
         })
         
@@ -149,3 +159,22 @@ extension ExploreVC: UISearchBarDelegate, UISearchResultsUpdating {
         return searchController.isActive && (!isSearchBarEmpty() || searchBarScopeIsFiltering)
     }
 } 
+
+
+
+private extension ExploreVC {
+        @objc private func logOutTapped() {
+        do {
+            try FirebaseAuth.Auth.auth().signOut()
+            UserDefaults.standard.setIsLoggedIn(value: false)
+            
+            let welcomeVC = WelcomeVC()
+            welcomeVC.modalPresentationStyle = .fullScreen
+            
+            present(welcomeVC, animated: true)
+        }catch{
+            print("An error occured signin out")
+        }
+    }
+    
+}

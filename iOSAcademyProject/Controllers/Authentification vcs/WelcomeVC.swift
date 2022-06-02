@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 
 class WelcomeVC: UIViewController {
-
+    
     private let nbaLogoImageView: UIImageView = {
         let iv = UIImageView()
         iv.image = UIImage(named: "assetsExportableLogosNbaNbaFullNegative")
@@ -83,11 +83,9 @@ class WelcomeVC: UIViewController {
     
     @objc func didTapSignIn() {
         let authVC = AuthVC()
-        authVC.modalPresentationStyle = .fullScreen
-        present(authVC, animated: true) { 
-            
-        }
-//        self.navigationController?.pushViewController(authVC, animated: true)
+        authVC.modalPresentationStyle = .formSheet
+        present(authVC, animated: true) 
+        //        self.navigationController?.pushViewController(authVC, animated: true)
     }
     
     private func configureSkipButton() {
@@ -95,11 +93,10 @@ class WelcomeVC: UIViewController {
     }
     
     @objc func didTapSkip() {
-        let homeVC = ExploreVC()
+        UserDefaults.standard.setIsLoggedIn(value: true)
+        let homeVC = MainNavigationController()
         homeVC.modalPresentationStyle = .fullScreen
         present(homeVC, animated: true)
-        
-        UserDefaults.standard.setIsLoggedIn(value: true)
     }
     
     private func configureConstraints() {
@@ -110,7 +107,7 @@ class WelcomeVC: UIViewController {
         configureSkipButtonConstraints()
     }
     
-    }
+}
 
 private extension WelcomeVC {
     func configureSkipButtonConstraints() {

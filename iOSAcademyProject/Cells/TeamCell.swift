@@ -24,14 +24,14 @@ class TeamCellViewModel {
 class TeamCell: UITableViewCell {
     static let identifier = "TeamCell"
     
-    let teamLabel: UILabel = {
+    var teamLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         
         return label
     }()
     
-    let teamImage: UIImageView = {
+    var teamImage: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         

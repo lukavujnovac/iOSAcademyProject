@@ -156,13 +156,11 @@ class AuthVC: UIViewController {
             
             UserDefaults.standard.setIsLoggedIn(value: true)
             
-            let vc = ExploreVC()
-            let navigationController = UINavigationController(rootViewController: vc)
-            vc.navigationController?.navigationBar.barStyle = .default
-            navigationController.modalPresentationStyle = .fullScreen
+            let vc = MainNavigationController()
+//            vc.navigationController?.navigationBar.barStyle = .default
+            vc.modalPresentationStyle = .fullScreen
             strongSelf.removeSpinner()
-            strongSelf.present(navigationController, animated: true)
-            
+            strongSelf.present(vc, animated: true)
             strongSelf.finishLoggingIn()
         }
         
@@ -197,7 +195,7 @@ class AuthVC: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-            
+            self.removeSpinner()
         }))
         
         present(alert, animated: true)
@@ -243,29 +241,3 @@ private extension AuthVC {
     }
 }
 
-
-//private extension ExploreVC {
-////    private let signOutButton: UIButton = {
-////        let button = UIButton()
-////        button.backgroundColor = .systemBlue
-////        button.setTitleColor(.white, for: .normal)
-////        button.setTitle("Log Out", for: .normal)
-////        
-////        return button
-////    }() 
-////      view.addSubview(signOutButton)
-//    @objc private func logOutTapped() {
-//        do {
-//            try FirebaseAuth.Auth.auth().signOut()
-//            UserDefaults.standard.setIsLoggedIn(value: false)
-//            
-//            let welcomeVC = WelcomeVC()
-//            welcomeVC.modalPresentationStyle = .fullScreen
-//            
-//            present(welcomeVC, animated: true)
-//        }catch{
-//            print("An error occured signin out")
-//        }
-//    }
-//    
-//}

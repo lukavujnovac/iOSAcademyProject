@@ -22,6 +22,9 @@
 		5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B74A2838E8B7009704CE /* AuthVC.swift */; };
 		5F61B7502838E8B8009704CE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B74F2838E8B8009704CE /* Assets.xcassets */; };
 		5F61B7532838E8B8009704CE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5F61B7512838E8B8009704CE /* LaunchScreen.storyboard */; };
+		5F6C1AC42847CECF0076E467 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6C1AC32847CECF0076E467 /* ViewController.swift */; };
+		5F6CB54F28495EB80038B84D /* PlayerListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6CB54E28495EB80038B84D /* PlayerListVC.swift */; };
+		5F6CB551284966FA0038B84D /* PlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F6CB550284966FA0038B84D /* PlayerCell.swift */; };
 		5FB103A428440BE4009D59CB /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 5FB103A328440BE4009D59CB /* FirebaseAuth */; };
 		5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */; };
 		5FB10DCB283B83B300FEB658 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */; };
@@ -47,6 +50,9 @@
 		5F61B74F2838E8B8009704CE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5F61B7522838E8B8009704CE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5F61B7542838E8B8009704CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5F6C1AC32847CECF0076E467 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5F6CB54E28495EB80038B84D /* PlayerListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerListVC.swift; sourceTree = "<group>"; };
+		5F6CB550284966FA0038B84D /* PlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerCell.swift; sourceTree = "<group>"; };
 		5FB10DC8283B78D600FEB658 /* WelcomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
 		5FB10DCA283B83B300FEB658 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5FD130052846ADCE001C32F5 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
@@ -83,6 +89,8 @@
 				5F0363CB2846AA530059F0B7 /* Authentification vcs */,
 				5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */,
 				5FD130052846ADCE001C32F5 /* ExploreVC.swift */,
+				5F6CB54E28495EB80038B84D /* PlayerListVC.swift */,
+				5F6C1AC32847CECF0076E467 /* ViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -112,6 +120,7 @@
 				5F3E2FBE2840243600AEB2EF /* CollectionTableViewCell.swift */,
 				5F3E2FC02840245500AEB2EF /* TableCollectionViewCell.swift */,
 				5FD130092846B77A001C32F5 /* TeamCell.swift */,
+				5F6CB550284966FA0038B84D /* PlayerCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -246,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FD1300A2846B77A001C32F5 /* TeamCell.swift in Sources */,
+				5F6CB551284966FA0038B84D /* PlayerCell.swift in Sources */,
 				5F3E2FC42840281000AEB2EF /* Models.swift in Sources */,
 				5F2AFA0E283D652100EBA6E8 /* FavouritesViewController.swift in Sources */,
 				5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */,
@@ -254,7 +264,9 @@
 				5F2AFA12283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift in Sources */,
 				5F3E2FC12840245500AEB2EF /* TableCollectionViewCell.swift in Sources */,
 				5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */,
+				5F6C1AC42847CECF0076E467 /* ViewController.swift in Sources */,
 				5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */,
+				5F6CB54F28495EB80038B84D /* PlayerListVC.swift in Sources */,
 				5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */,
 				5F45367B2843FEED00CEFCDB /* UIViewController+Extensions.swift in Sources */,
 				5FD130062846ADCE001C32F5 /* ExploreVC.swift in Sources */,
