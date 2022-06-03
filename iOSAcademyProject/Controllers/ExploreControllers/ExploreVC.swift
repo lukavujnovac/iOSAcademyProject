@@ -50,13 +50,15 @@ class ExploreVC: UIViewController{
         UserDefaults.standard.changeShowingTeams(value: showingTeams)
         view.backgroundColor = .systemBackground
         navigationItem.searchController = searchController
+        navigationController?.navigationBar.isHidden = false
         
         view.addSubview(table)
         table.delegate = self
         table.dataSource = self
         showSpinner()
+        navigationController?.navigationBar.isHidden = false
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Change List", style: .done, target: self, action: #selector(changeListTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show player list", style: .done, target: self, action: #selector(changeListTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOutTapped))
         
         ApiCaller.shared.getTeams { [weak self] result in
@@ -80,13 +82,12 @@ class ExploreVC: UIViewController{
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        
         table.frame = view.bounds
     }
     
     @objc private func changeListTapped() {
-        showingTeams.toggle()
-        UserDefaults.standard.changeShowingTeams(value: showingTeams)
+        let vc = PlayerListVC()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -160,8 +161,6 @@ extension ExploreVC: UISearchBarDelegate, UISearchResultsUpdating {
     }
 } 
 
-
-
 private extension ExploreVC {
         @objc private func logOutTapped() {
         do {
@@ -176,5 +175,4 @@ private extension ExploreVC {
             print("An error occured signin out")
         }
     }
-    
 }

@@ -13,14 +13,23 @@ final class ApiCaller {
     
     struct Constants {
         static let allTeamsURL = URL(string: "https://www.balldontlie.io/api/v1/teams")
-        static let allPLayersURL = URL(string: "https://www.balldontlie.io/api/v1/players")
+        static let allPLayersURL = "https://www.balldontlie.io/api/v1/players?per_page=20?page="
         static let playerImageURL = "https://academy-2022.dev.sofascore.com/api/v1/academy/player-image/player/"
     }
     
-    private init() {}
+    init() {}
     
-    public func getPlayers(completition: @escaping (Result<[Player], Error>) -> Void) {
-        guard let url = Constants.allPLayersURL else {return}
+    var isPaginating = false
+    
+    public func getPlayers(pagination: Bool = false, page: Int = 0, completition: @escaping (Result<[Player], Error>) -> Void) {
+        var currentPage = pagination ? page : 0
+        
+        if pagination {
+            isPaginating = true
+        }
+        
+        let urlString = "\(Constants.allPLayersURL)\(currentPage)"
+        guard let url = URL(string: urlString) else {return}
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in
             if let error = error {
@@ -31,6 +40,9 @@ final class ApiCaller {
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let result = try decoder.decode(ApiPlayerResponse.self, from: data)
                     completition(.success(result.data))
+                    if pagination {
+                        self.isPaginating = false
+                    }
                 }catch {
                     completition(.failure(error))
                 }
@@ -39,6 +51,7 @@ final class ApiCaller {
         task.resume()
     }
     
+        
     public func getTeams(completition: @escaping(Result<[Team], Error>) -> Void) {
         guard let url = Constants.allTeamsURL else {return}
         
@@ -90,4 +103,15 @@ struct Player: Codable {
     let heightInches: Int?
     let weightPounds: Int?
     let team: Team
+}
+
+struct PlayerImageApiResponse: Codable {
+    let data: [PlayerImage]
+}
+
+struct PlayerImage: Codable {
+//    let playerId: Int
+    let imageUrl: String
+//    let imageCaption: String
+//    let id: Int
 }

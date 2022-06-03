@@ -12,16 +12,13 @@ class PlayerCellViewModel {
     let firstName: String
     let lastName: String
     let teamName: String
-    var imageUrl: URL? = nil
     var imageData: Data? = nil
     let id: Int
     
-    init(firstName: String, lastName: String, teamName: String, imageUrl: URL?, id: Int) {
+    init(firstName: String, lastName: String, teamName: String, id: Int) {
         self.firstName = firstName
         self.lastName = lastName
         self.teamName = teamName
-        let urlString = "\(ApiCaller.Constants.playerImageURL ?? "")\(id)"
-        self.imageUrl = URL(string: urlString)
         self.id = id
     }
 }
@@ -29,21 +26,21 @@ class PlayerCellViewModel {
 class PlayerCell: UITableViewCell {
     static let identifier = "PlayerCell"
     
-    private let lastNameLabel: UILabel = {
+    var lastNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24)
         
         return label
     }()
     
-    private let firstNameLabel: UILabel = {
+    var firstNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24)
         
         return label
     }()
     
-    private let teamNameLabel: UILabel = {
+    var teamNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 15)
         
@@ -52,7 +49,7 @@ class PlayerCell: UITableViewCell {
     
     private let playerImageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .systemBlue
+        iv.image = UIImage(systemName: "person.circle")
         iv.contentMode = .scaleAspectFill
         
         return iv
@@ -78,27 +75,41 @@ class PlayerCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+//        playerImageView.image = nil
     }
     
     func configure(with viewModel: PlayerCellViewModel) {
         firstNameLabel.text = viewModel.firstName
         lastNameLabel.text = viewModel.lastName
         teamNameLabel.text = viewModel.teamName
+
+//        let urlString = "\(ApiCaller.Constants.playerImageURL)\(viewModel.id)"
+//        guard let url = URL(string: urlString) else {return}
         
-        if let data = viewModel.imageData {
-            playerImageView.image = UIImage(data: data)
-        }else {
-            let urlString = URL(string: "\(ApiCaller.Constants.playerImageURL)\(viewModel.id)")
-            if let url = urlString {
-                URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
-                    guard let data = data, error == nil else {return}
-                    viewModel.imageData = data
-                    DispatchQueue.main.async {
-                        self?.playerImageView.image = UIImage(data: data)
-                    }
-                }.resume()
-            }
-        }
+//        let task = URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
+//            guard let data = data, error == nil else {return}
+//            DispatchQueue.main.async {
+//                let image = UIImage(data: data)
+////                self?.playerImageView.image = UIImage(systemName: "")
+//                self?.playerImageView.image = image
+//            }
+//        }
+//        task.resume()
+        
+//        if let data = viewModel.imageData {
+//            playerImageView.image = UIImage(data: data)
+//        }else {
+//            let urlString = viewModel.imageUrl
+//            if let url = urlString {
+//                URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
+//                    guard let data = data, error == nil else {return}
+//                    viewModel.imageData = data
+//                    DispatchQueue.main.async {
+//                        self?.playerImageView.image = UIImage(data: data)
+//                    }
+//                }.resume()
+//            }
+//        }
     }
     
     private func configureConstraints() {

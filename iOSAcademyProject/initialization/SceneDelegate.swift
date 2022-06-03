@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [createMainVC(), createPlayerListVC()]
+        tabBar.viewControllers = [createMainVC(), createFavoritesVC()]
         tabBar.tabBar.tintColor = .systemPink
         
         return tabBar
@@ -52,9 +52,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return UINavigationController(rootViewController: vc)
     }
     
-    func createVC() -> UINavigationController{
-        let vc = ViewController()
-        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+    func createFavoritesVC() -> UINavigationController{
+        let vc = FavoritesVC()
+        vc.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "star.fill"), tag:0)
         return UINavigationController(rootViewController: vc)
     }
     
