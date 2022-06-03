@@ -18,22 +18,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
-        
-        
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = isLoggedIn() ? createTabBar() : MainNavigationController()
+        window?.rootViewController = createTabBar()
         window?.makeKeyAndVisible()
-    }
-    
-    fileprivate func isLoggedIn() -> Bool {
-        return UserDefaults.standard.isLoggedIn()
     }
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [createVC()]
-        tabBar.tabBar.tintColor = .black
+        tabBar.viewControllers = [createMainVC(), createPlayerListVC()]
+        tabBar.tabBar.tintColor = .systemPink
         
         return tabBar
     }
@@ -44,15 +38,29 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return UINavigationController(rootViewController: vc)
     }
     
-    func createVC() -> UINavigationController {
-        let vc = ViewController()
-        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 0)
+    func createMainVC() -> UINavigationController {
+        let vc = MainNavigationController()
+        vc.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "basketball"), tag: 0)
         
+        return vc
+    }
+    
+    func createPlayerListVC() -> UINavigationController {
+        let vc = PlayerListVC()
+        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
+        
+        return UINavigationController(rootViewController: vc)
+    }
+    
+    func createVC() -> UINavigationController{
+        let vc = ViewController()
+        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
         return UINavigationController(rootViewController: vc)
     }
     
     func createWelcomeVC() -> UINavigationController {
         let vc = WelcomeVC()
+        vc.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
         
         return UINavigationController(rootViewController: vc)
     }
