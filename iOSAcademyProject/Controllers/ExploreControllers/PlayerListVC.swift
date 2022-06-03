@@ -16,24 +16,8 @@ class PlayerListVC: UIViewController {
         return table
     }()
     
-    private lazy var searchController: UISearchController = {
-        let s = UISearchController(searchResultsController: nil)
-        s.searchResultsUpdater = self
-        s.obscuresBackgroundDuringPresentation = false
-        s.searchBar.placeholder = "Search"
-        s.searchBar.sizeToFit()
-        s.searchBar.searchBarStyle = .prominent
-        s.searchBar.scopeButtonTitles = ["G", "F", "C", "All"]
-        s.searchBar.delegate = self
-        s.searchBar.backgroundColor = .systemBackground
-        
-        return s
-    }()
-    
     private let apiCaller = ApiCaller()
     private var playerImageUrls = [String]()
-    private var filteredPlayers = [Player]()
-    private var players = [Player]()
     private var viewModels = [PlayerCellViewModel]()
     private var playerImages = [PlayerImage]()
     private var currentPage = 0
@@ -52,7 +36,6 @@ class PlayerListVC: UIViewController {
         ApiCaller.shared.getPlayers(pagination: false, page: currentPage) { [weak self] result in
             switch result {
                 case.success(let players):
-                    self?.players = players
                     self?.fetchPlayerPhotos(for: players[players.distance(from: players.startIndex, to: players.startIndex)].id)
                     self?.viewModels = players.compactMap({
                         PlayerCellViewModel(firstName: $0.firstName, lastName: $0.lastName, teamName: $0.team.abbreviation, id: $0.id)
@@ -73,28 +56,6 @@ class PlayerListVC: UIViewController {
         removeSpinner()
     }
     
-    private func filterContentForSearchText(searchText: String, scope: String = "All") {
-        filteredPlayers = players.filter({ player in
-            let doesCategoryMatch = (scope == "All") || (player.position == scope) 
-            
-            if isSearchBarEmpty() {
-                return doesCategoryMatch
-            }else {
-                return doesCategoryMatch && player.lastName.lowercased().contains(searchText.lowercased())
-            }
-        })
-        
-        table.reloadData()
-    }
-    
-    private func isSearchBarEmpty() -> Bool {
-        return searchController.searchBar.text?.isEmpty ?? true
-    }
-    
-    private func isFiltering() -> Bool {
-        let searchBarScopeIsFiltering = searchController.searchBar.selectedScopeButtonIndex != 0
-        return searchController.isActive && (!isSearchBarEmpty() || searchBarScopeIsFiltering)
-    }
     
     func fetchPlayerPhotos(for id: Int){
         let urlString = "\(ApiCaller.Constants.playerImageURL)\(id)"
@@ -118,10 +79,7 @@ class PlayerListVC: UIViewController {
 
 extension PlayerListVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering() {
-            return filteredPlayers.count
-        }
-        return players.count
+        return viewModels.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -136,19 +94,7 @@ extension PlayerListVC: UITableViewDelegate, UITableViewDataSource {
         //            cell.configure(with: viewModels[indexPath.row], for: playerImageUrls[0] ?? "")
         //        }
         
-        let currentPlayer: Player
-        
-        if isFiltering() {
-            currentPlayer = filteredPlayers[indexPath.row]
-        }else {
-            currentPlayer = players[indexPath.row]
-        }
-        
-        cell.firstNameLabel.text = currentPlayer.firstName
-        cell.lastNameLabel.text = currentPlayer.lastName
-        cell.teamNameLabel.text = currentPlayer.team.abbreviation
-        
-//        cell.configure(with: viewModels[indexPath.row])
+        cell.configure(with: viewModels[indexPath.row])
         
         return cell
     }
@@ -198,18 +144,5 @@ extension PlayerListVC: UIScrollViewDelegate {
                 }
             }
         }
-    }
-}
-
-extension PlayerListVC: UISearchBarDelegate, UISearchResultsUpdating {
-    func updateSearchResults(for searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        
-        filterContentForSearchText(searchText: searchController.searchBar.text!, scope: scope)
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchText: searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
     }
 }
