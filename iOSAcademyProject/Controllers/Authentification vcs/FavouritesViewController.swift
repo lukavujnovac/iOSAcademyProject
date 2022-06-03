@@ -84,7 +84,7 @@ class FavouritesViewController: UIViewController {
     }                             
     
     @objc private func continueTapped() {
-        let vc = ViewController()
+        let vc = ExploreVC()
         vc.modalPresentationStyle = .fullScreen
         
         present(vc, animated: true)

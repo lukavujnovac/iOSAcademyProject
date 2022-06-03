@@ -12,10 +12,12 @@ class MainNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
-        
         if isLoggedIn() {
-            let vc = ViewController()
+            let vc = ExploreVC()
+            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
+            navigationController?.navigationBar.isHidden = false
             viewControllers = [vc]
+            
         }else {
             perform(#selector(showWelcomeVC), with: nil, afterDelay: 0.01)
         }
@@ -25,10 +27,13 @@ class MainNavigationController: UINavigationController {
         return UserDefaults.standard.isLoggedIn()
     }
     
+    
     @objc func showWelcomeVC() {
         let welcomeVC = WelcomeVC()
+        welcomeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .contacts, tag: 0)
         welcomeVC.modalPresentationStyle = .fullScreen
         present(welcomeVC, animated: true) { 
         }
     }
 }
+

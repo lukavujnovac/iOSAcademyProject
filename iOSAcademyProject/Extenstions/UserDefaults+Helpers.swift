@@ -17,6 +17,14 @@ extension UserDefaults {
         return bool(forKey: "isLoggedIn")
     }
     
+    func changeShowingTeams(value: Bool) {
+        set(value, forKey: "showingTeams")
+    }
+    
+    func isShowingTeams() -> Bool {
+        return bool(forKey: "showingTeams")
+    }
+    
     func favoriteTeams() -> [String]? {
         if array(forKey: "favoriteTeams") == nil {
             return [""] 

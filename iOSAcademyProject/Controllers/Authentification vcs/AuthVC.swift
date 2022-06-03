@@ -156,13 +156,11 @@ class AuthVC: UIViewController {
             
             UserDefaults.standard.setIsLoggedIn(value: true)
             
-            let vc = ViewController()
-            let navigationController = UINavigationController(rootViewController: vc)
-            vc.navigationController?.navigationBar.barStyle = .default
-            navigationController.modalPresentationStyle = .fullScreen
+            let vc = MainNavigationController()
+//            vc.navigationController?.navigationBar.barStyle = .default
+            vc.modalPresentationStyle = .fullScreen
             strongSelf.removeSpinner()
-            strongSelf.present(navigationController, animated: true)
-            
+            strongSelf.present(vc, animated: true)
             strongSelf.finishLoggingIn()
         }
         
@@ -186,9 +184,9 @@ class AuthVC: UIViewController {
                 strongSelf.passwordField.resignFirstResponder()
                 
                 let vc = FavouritesViewController()
-                let navigationController = UINavigationController(rootViewController: vc)
+//                let navigationController = UINavigationController(rootViewController: vc)
                 strongSelf.removeSpinner()
-                navigationController.modalPresentationStyle = .fullScreen
+//                navigationController.modalPresentationStyle = .fullScreen
                 vc.navigationController?.navigationBar.barStyle = .default
                 strongSelf.present(vc, animated: true)
                 
@@ -197,7 +195,7 @@ class AuthVC: UIViewController {
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-            
+            self.removeSpinner()
         }))
         
         present(alert, animated: true)
@@ -242,3 +240,4 @@ private extension AuthVC {
         }
     }
 }
+
