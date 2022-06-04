@@ -17,6 +17,8 @@ class ExploreVC: UIViewController{
         return table
     }()
     
+    private let tableEmptyView = EmptyView(frame: CGRect.zero)
+    
     private lazy var searchController: UISearchController = {
         let s = UISearchController(searchResultsController: nil)
         s.searchResultsUpdater = self
@@ -53,10 +55,12 @@ class ExploreVC: UIViewController{
         navigationController?.navigationBar.isHidden = false
         
         view.addSubview(table)
+        setupEmptyView()
         table.delegate = self
         table.dataSource = self
         showSpinner()
         navigationController?.navigationBar.isHidden = false
+        tableEmptyView.isHidden = true
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show player list", style: .done, target: self, action: #selector(changeListTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOutTapped))
@@ -83,6 +87,25 @@ class ExploreVC: UIViewController{
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         table.frame = view.bounds
+        tableEmptyView.frame = view.bounds
+    }
+    
+    func checkIsEmpty() {
+        if filteredTeams.isEmpty {
+            print("no data")
+            tableEmptyView.isHidden = false
+        }else {
+            print("data")
+            tableEmptyView.isHidden = true
+        }
+    }
+    
+//    func layoutEmptyView() {
+//        tableEmptyView.frame = view.bounds
+//    }
+    
+    func setupEmptyView() {
+        view.addSubview(tableEmptyView)
     }
     
     @objc private func changeListTapped() {
@@ -135,6 +158,8 @@ extension ExploreVC: UISearchBarDelegate, UISearchResultsUpdating {
         let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         
         filterContentForSearchText(searchText: searchBar.text!, scope: scope)
+        
+        checkIsEmpty()
     }
     
     private func filterContentForSearchText(searchText: String, scope: String = "All") {

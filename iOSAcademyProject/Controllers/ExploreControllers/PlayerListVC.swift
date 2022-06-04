@@ -56,7 +56,6 @@ class PlayerListVC: UIViewController {
         removeSpinner()
     }
     
-    
     func fetchPlayerPhotos(for id: Int){
         let urlString = "\(ApiCaller.Constants.playerImageURL)\(id)"
         guard let url = URL(string: urlString) else {return}

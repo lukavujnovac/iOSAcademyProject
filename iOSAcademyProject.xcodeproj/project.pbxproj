@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F15C07B284BBC4100DCE6CA /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F15C07A284BBC4100DCE6CA /* EmptyView.swift */; };
 		5F2AFA0C283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AFA0B283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift */; };
 		5F2AFA0E283D652100EBA6E8 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AFA0D283D652100EBA6E8 /* FavouritesViewController.swift */; };
 		5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F15C07A284BBC4100DCE6CA /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		5F2AFA0B283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIKit+Exstenstions.swift"; sourceTree = "<group>"; };
 		5F2AFA0D283D652100EBA6E8 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainNavigationController.swift; sourceTree = "<group>"; };
@@ -81,6 +83,14 @@
 				5F2AFA0D283D652100EBA6E8 /* FavouritesViewController.swift */,
 			);
 			path = "Authentification vcs";
+			sourceTree = "<group>";
+		};
+		5F15C07C284BC56E00DCE6CA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5F15C07A284BBC4100DCE6CA /* EmptyView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		5F2AFA13283D81F700EBA6E8 /* Controllers */ = {
@@ -165,6 +175,7 @@
 				5F61B7542838E8B8009704CE /* Info.plist */,
 				5F3E2FC22840280200AEB2EF /* Models */,
 				5F3E2FBD2840240E00AEB2EF /* Cells */,
+				5F15C07C284BC56E00DCE6CA /* Views */,
 				5F2AFA13283D81F700EBA6E8 /* Controllers */,
 				5F2AFA14283D820000EBA6E8 /* Extenstions */,
 				5F4536752843EE9100CEFCDB /* DataServices */,
@@ -278,6 +289,7 @@
 				5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */,
 				5F45367B2843FEED00CEFCDB /* UIViewController+Extensions.swift in Sources */,
 				5FD130062846ADCE001C32F5 /* ExploreVC.swift in Sources */,
+				5F15C07B284BBC4100DCE6CA /* EmptyView.swift in Sources */,
 				5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */,
 				5F3E2FBF2840243600AEB2EF /* CollectionTableViewCell.swift in Sources */,
 				5F2AFA0C283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift in Sources */,

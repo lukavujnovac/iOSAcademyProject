@@ -17,6 +17,7 @@ class MainNavigationController: UINavigationController {
             vc.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
             navigationController?.navigationBar.isHidden = false
             viewControllers = [vc]
+            reNew()
             
         }else {
             perform(#selector(showWelcomeVC), with: nil, afterDelay: 0.01)
@@ -25,6 +26,10 @@ class MainNavigationController: UINavigationController {
     
     fileprivate func isLoggedIn() -> Bool {
         return UserDefaults.standard.isLoggedIn()
+    }
+    
+    func reNew(){
+        UIApplication.shared.keyWindow?.rootViewController = UINavigationController(rootViewController: ExploreVC())
     }
     
     
