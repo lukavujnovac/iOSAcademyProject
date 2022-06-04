@@ -18,7 +18,7 @@ class PlayerListVC: UIViewController {
     
     private let apiCaller = ApiCaller()
     private var playerImageUrls = [String]()
-    private var viewModels = [PlayerCellViewModel]()
+    private var viewModels = [PlayerViewModel]()
     private var playerImages = [PlayerImage]()
     private var currentPage = 0
     private let totalPages = 151
@@ -38,7 +38,7 @@ class PlayerListVC: UIViewController {
                 case.success(let players):
                     self?.fetchPlayerPhotos(for: players[players.distance(from: players.startIndex, to: players.startIndex)].id)
                     self?.viewModels = players.compactMap({
-                        PlayerCellViewModel(firstName: $0.firstName, lastName: $0.lastName, teamName: $0.team.abbreviation, id: $0.id, imageName: $0.position)
+                        PlayerViewModel(id: $0.id, firstName: $0.firstName, lastName: $0.lastName, heightFeet: $0.heightFeet ?? 0, heightInches: $0.heightInches ?? 0, position: $0.position, team: $0.team, weightPounds: $0.weightPounds ?? 0)
                     })
                     
                     DispatchQueue.main.async {
@@ -100,8 +100,9 @@ extension PlayerListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
-        print(viewModels[indexPath.row].id)
-        fetchPlayerPhotos(for: viewModels[indexPath.row].id)
+        let viewModel = viewModels[indexPath.row]
+        let vc = PlayerDetailVC(viewModel: viewModel)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showSpinnerFooter() -> UIView {
@@ -132,8 +133,7 @@ extension PlayerListVC: UIScrollViewDelegate {
                 switch result {
                     case.success(let morePlayers):
                         self?.viewModels.append(contentsOf: morePlayers.compactMap({
-                            PlayerCellViewModel(firstName: $0.firstName, lastName: $0.lastName, teamName: $0.team.name, id: $0.id, imageName: $0.position)
-                        }))
+                            PlayerViewModel(id: $0.id, firstName: $0.firstName, lastName: $0.lastName, heightFeet: $0.heightFeet ?? 0, heightInches: $0.heightInches ?? 0, position: $0.position, team: $0.team, weightPounds: $0.weightPounds ?? 0)}))
                         
                         DispatchQueue.main.async {
                             self?.table.reloadData()

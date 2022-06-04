@@ -8,20 +8,25 @@
 import UIKit
 import SnapKit
 
-class PlayerCellViewModel {
+class PlayerViewModel {
+    let id: Int
     let firstName: String
     let lastName: String
-    let teamName: String
-    var imageData: Data? = nil
-    let id: Int
-    var imageName: String
+    let heightFeet: Int
+    let heightInches: Int
+    let position: String
+    let team: Team
+    let weightPounds: Int
     
-    init(firstName: String, lastName: String, teamName: String, id: Int, imageName: String) {
+    init(id: Int, firstName: String, lastName: String, heightFeet: Int, heightInches: Int, position: String, team: Team, weightPounds: Int) {
         self.firstName = firstName
         self.lastName = lastName
-        self.teamName = teamName
         self.id = id
-        self.imageName = imageName
+        self.heightFeet = heightFeet
+        self.heightInches = heightInches
+        self.position = position
+        self.team = team
+        self.weightPounds = weightPounds
     }
 }
 
@@ -79,11 +84,11 @@ class PlayerCell: UITableViewCell {
 //        playerImageView.image = nil
     }
     
-    func configure(with viewModel: PlayerCellViewModel) {
+    func configure(with viewModel: PlayerViewModel) {
         firstNameLabel.text = viewModel.firstName
         lastNameLabel.text = viewModel.lastName
-        teamNameLabel.text = viewModel.teamName
-        imageView?.image = UIImage(named: viewModel.imageName)
+        teamNameLabel.text = viewModel.team.name
+        imageView?.image = UIImage(named: viewModel.team.name?.lowercased() ?? "")
         imageView?.backgroundColor = .systemBlue
         
 
