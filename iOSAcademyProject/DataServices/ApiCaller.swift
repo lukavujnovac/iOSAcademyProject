@@ -104,13 +104,13 @@ struct ApiTeamResponse: Codable {
 }
 
 struct Team: Codable {
-    let id: Int
-    let abbreviation: String
-    let city: String
-    let conference: String
-    let division: String
-    let fullName: String
-    let name: String
+    let id: Int?
+    let abbreviation: String?
+    let city: String?
+    let conference: String?
+    let division: String?
+    let fullName: String?
+    let name: String?
 }
 
 struct ApiPlayerResponse: Codable {

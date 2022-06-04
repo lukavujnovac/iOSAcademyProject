@@ -73,7 +73,7 @@ class ExploreVC: UIViewController{
             switch result {
                 case .success(let teams):
                     self?.teams = teams
-                    self?.viewModels = teams.compactMap({TeamViewModel(fullName: $0.fullName, id: $0.id, abbreviation: $0.fullName, city: $0.city, division: $0.division, imageString: $0.name, conference: $0.conference, name: $0.name)})
+                    self?.viewModels = teams.compactMap({TeamViewModel(fullName: $0.fullName ?? "", id: $0.id ?? 0, abbreviation: $0.fullName ?? "", city: $0.city ?? "", division: $0.division ?? "", imageString: $0.name ?? "", conference: $0.conference ?? "", name: $0.name ?? "")})
                     DispatchQueue.main.async {
                         self?.table.reloadData()
                         self?.removeSpinner()
@@ -127,7 +127,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
         }
         
         cell.teamLabel.text = currentTeam.fullName
-        cell.teamImage.image = UIImage(named: currentTeam.name.lowercased())
+        cell.teamImage.image = UIImage(named: currentTeam.name?.lowercased() ?? "")
         
         return cell
     }
@@ -167,7 +167,7 @@ extension ExploreVC: UISearchBarDelegate, UISearchResultsUpdating {
             if isSearchBarEmpty() {
                 return doesCategoryMatch
             }else {
-                return doesCategoryMatch && team.fullName.lowercased().contains(searchText.lowercased())
+                return doesCategoryMatch && ((team.fullName?.lowercased().contains(searchText.lowercased())) != nil)
             }
         })
         
