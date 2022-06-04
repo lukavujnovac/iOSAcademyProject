@@ -41,7 +41,7 @@ class ExploreVC: UIViewController{
         
         return button
     }() 
-    private var viewModels = [TeamCellViewModel]()
+    private var viewModels = [TeamViewModel]()
     private var teams = [Team]()
     private var filteredTeams = [Team]()
     
@@ -64,12 +64,16 @@ class ExploreVC: UIViewController{
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Show player list", style: .done, target: self, action: #selector(changeListTapped))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "log out", style: .plain, target: self, action: #selector(logOutTapped))
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         ApiCaller.shared.getTeams { [weak self] result in
             switch result {
                 case .success(let teams):
                     self?.teams = teams
-                    self?.viewModels = teams.compactMap({TeamCellViewModel(fullName: $0.fullName, imageName: $0.name.lowercased(), id: $0.id, conference: $0.conference)})
+                    self?.viewModels = teams.compactMap({TeamViewModel(fullName: $0.fullName, id: $0.id, abbreviation: $0.fullName, city: $0.city, division: $0.division, imageString: $0.name, conference: $0.conference, name: $0.name)})
                     DispatchQueue.main.async {
                         self?.table.reloadData()
                         self?.removeSpinner()
@@ -78,10 +82,6 @@ class ExploreVC: UIViewController{
                     print(error)
             }
         }
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -99,10 +99,6 @@ class ExploreVC: UIViewController{
             tableEmptyView.isHidden = true
         }
     }
-    
-//    func layoutEmptyView() {
-//        tableEmptyView.frame = view.bounds
-//    }
     
     func setupEmptyView() {
         view.addSubview(tableEmptyView)
@@ -139,7 +135,9 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
         let viewModel = viewModels[indexPath.row]
+        let vc = TeamDetailVC(viewModel: viewModel)
         print(viewModel.id)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

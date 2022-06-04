@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import AVFoundation
+
 
 final class ApiCaller {
     
@@ -15,6 +17,7 @@ final class ApiCaller {
         static let allTeamsURL = URL(string: "https://www.balldontlie.io/api/v1/teams")
         static let allPLayersURL = "https://www.balldontlie.io/api/v1/players?per_page=20?page="
         static let playerImageURL = "https://academy-2022.dev.sofascore.com/api/v1/academy/player-image/player/"
+        static let getTeamURL = "https://www.balldontlie.io/api/v1/teams/"
     }
     
     init() {}
@@ -22,7 +25,7 @@ final class ApiCaller {
     var isPaginating = false
     
     public func getPlayers(pagination: Bool = false, page: Int = 0, completition: @escaping (Result<[Player], Error>) -> Void) {
-        var currentPage = pagination ? page : 0
+        let currentPage = pagination ? page : 0
         
         if pagination {
             isPaginating = true
@@ -51,6 +54,7 @@ final class ApiCaller {
         task.resume()
     }
     
+    
         
     public func getTeams(completition: @escaping(Result<[Team], Error>) -> Void) {
         guard let url = Constants.allTeamsURL else {return}
@@ -68,6 +72,25 @@ final class ApiCaller {
                     completition(.success(result.data))
                 }catch {
                     completition(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    public func getTeam(id: Int, completiton: @escaping(Result<Team, Error>) -> Void) {
+        guard let url = URL(string: "\(Constants.getTeamURL)\(id)") else {return}
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {completiton(.failure(error))}
+            else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(Team.self, from: data) 
+                    print(result.name)
+                }catch {
+                    completiton(.failure(error))
                 }
             }
         }

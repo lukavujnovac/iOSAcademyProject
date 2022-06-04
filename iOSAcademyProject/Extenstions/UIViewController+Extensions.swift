@@ -20,10 +20,15 @@ extension UIViewController {
         ai.startAnimating()
         aView?.addSubview(ai)
         self.view.addSubview(aView!)
+        
     }
     
     func removeSpinner() {
         aView?.removeFromSuperview()
         aView = nil
+    }
+    
+    private func reNew(){
+        UIApplication.shared.keyWindow?.rootViewController = MainNavigationController()
     }
 }

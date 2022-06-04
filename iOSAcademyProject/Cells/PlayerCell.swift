@@ -14,12 +14,14 @@ class PlayerCellViewModel {
     let teamName: String
     var imageData: Data? = nil
     let id: Int
+    var imageName: String
     
-    init(firstName: String, lastName: String, teamName: String, id: Int) {
+    init(firstName: String, lastName: String, teamName: String, id: Int, imageName: String) {
         self.firstName = firstName
         self.lastName = lastName
         self.teamName = teamName
         self.id = id
+        self.imageName = imageName
     }
 }
 
@@ -49,8 +51,7 @@ class PlayerCell: UITableViewCell {
     
     private let playerImageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(systemName: "person.circle")
-        iv.contentMode = .scaleAspectFill
+        iv.contentMode = .scaleAspectFit
         
         return iv
     }()
@@ -82,6 +83,9 @@ class PlayerCell: UITableViewCell {
         firstNameLabel.text = viewModel.firstName
         lastNameLabel.text = viewModel.lastName
         teamNameLabel.text = viewModel.teamName
+        imageView?.image = UIImage(named: viewModel.imageName)
+        imageView?.backgroundColor = .systemBlue
+        
 
 //        let urlString = "\(ApiCaller.Constants.playerImageURL)\(viewModel.id)"
 //        guard let url = URL(string: urlString) else {return}
@@ -115,11 +119,11 @@ class PlayerCell: UITableViewCell {
     private func configureConstraints() {
         playerImageView.snp.makeConstraints { 
             $0.leading.equalToSuperview()
-            $0.width.height.equalTo(50)
+            $0.width.height.equalTo(30)
         }
         
         firstNameLabel.snp.makeConstraints { 
-            $0.leading.equalTo(playerImageView.snp.trailing).offset(30)
+            $0.leading.equalToSuperview().offset(170)
             $0.top.equalToSuperview().offset(5)
         }
         
@@ -129,7 +133,7 @@ class PlayerCell: UITableViewCell {
         }
         
         teamNameLabel.snp.makeConstraints { 
-            $0.leading.equalTo(playerImageView.snp.trailing).offset(50)
+            $0.leading.equalToSuperview().offset(170)
             $0.top.equalTo(firstNameLabel.snp.bottom).offset(5)
         }
     }

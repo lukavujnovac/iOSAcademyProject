@@ -14,5 +14,10 @@ class FavoritesVC: UIViewController {
 
         view.backgroundColor = .red
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+    }
 
 }

@@ -38,7 +38,7 @@ class PlayerListVC: UIViewController {
                 case.success(let players):
                     self?.fetchPlayerPhotos(for: players[players.distance(from: players.startIndex, to: players.startIndex)].id)
                     self?.viewModels = players.compactMap({
-                        PlayerCellViewModel(firstName: $0.firstName, lastName: $0.lastName, teamName: $0.team.abbreviation, id: $0.id)
+                        PlayerCellViewModel(firstName: $0.firstName, lastName: $0.lastName, teamName: $0.team.abbreviation, id: $0.id, imageName: $0.position)
                     })
                     
                     DispatchQueue.main.async {
@@ -132,7 +132,7 @@ extension PlayerListVC: UIScrollViewDelegate {
                 switch result {
                     case.success(let morePlayers):
                         self?.viewModels.append(contentsOf: morePlayers.compactMap({
-                            PlayerCellViewModel(firstName: $0.firstName, lastName: $0.lastName, teamName: $0.team.name, id: $0.id)
+                            PlayerCellViewModel(firstName: $0.firstName, lastName: $0.lastName, teamName: $0.team.name, id: $0.id, imageName: $0.position)
                         }))
                         
                         DispatchQueue.main.async {

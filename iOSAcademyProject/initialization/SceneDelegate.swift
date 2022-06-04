@@ -21,6 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         window?.rootViewController = createTabBar()
+//        window?.rootViewController = UINavigationController(rootViewController: TeamDetailVC(viewModel: TeamViewModel(fullName: "Lakers", id: 1, abbreviation: "LAL", city: "Los Angeles", division: "West", imageString: "Lakers", conference: "Pacific", name: "Lakers")))
         window?.makeKeyAndVisible()
     }
     

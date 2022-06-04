@@ -18,6 +18,8 @@
 		5F4536772843EE9F00CEFCDB /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4536762843EE9F00CEFCDB /* MockData.swift */; };
 		5F45367B2843FEED00CEFCDB /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F45367A2843FEED00CEFCDB /* UIViewController+Extensions.swift */; };
 		5F45367E284408D200CEFCDB /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 5F45367D284408D200CEFCDB /* SnapKit */; };
+		5F5BF832284BD6F90070D714 /* JSonToCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BF830284BD6F90070D714 /* JSonToCoreData.xcdatamodeld */; };
+		5F5BF834284BD85A0070D714 /* TeamDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BF833284BD85A0070D714 /* TeamDetailVC.swift */; };
 		5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7462838E8B7009704CE /* AppDelegate.swift */; };
 		5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7482838E8B7009704CE /* SceneDelegate.swift */; };
 		5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B74A2838E8B7009704CE /* AuthVC.swift */; };
@@ -45,6 +47,8 @@
 		5F3E2FC32840281000AEB2EF /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		5F4536762843EE9F00CEFCDB /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		5F45367A2843FEED00CEFCDB /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
+		5F5BF831284BD6F90070D714 /* JSonToCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JSonToCoreData.xcdatamodel; sourceTree = "<group>"; };
+		5F5BF833284BD85A0070D714 /* TeamDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailVC.swift; sourceTree = "<group>"; };
 		5F61B7432838E8B7009704CE /* iOSAcademyProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAcademyProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F61B7462838E8B7009704CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F61B7482838E8B7009704CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +93,7 @@
 			isa = PBXGroup;
 			children = (
 				5F15C07A284BBC4100DCE6CA /* EmptyView.swift */,
+				5F2AFA13283D81F700EBA6E8 /* Controllers */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -96,10 +101,11 @@
 		5F2AFA13283D81F700EBA6E8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5F0363CB2846AA530059F0B7 /* Authentification vcs */,
 				5F2AFA0F283D720F00EBA6E8 /* MainNavigationController.swift */,
+				5F0363CB2846AA530059F0B7 /* Authentification vcs */,
 				5FE65F9D284AA79900327CB9 /* ExploreControllers */,
 				5F6C1AC32847CECF0076E467 /* FavoritesVC.swift */,
+				5F5BF833284BD85A0070D714 /* TeamDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -176,11 +182,11 @@
 				5F3E2FC22840280200AEB2EF /* Models */,
 				5F3E2FBD2840240E00AEB2EF /* Cells */,
 				5F15C07C284BC56E00DCE6CA /* Views */,
-				5F2AFA13283D81F700EBA6E8 /* Controllers */,
 				5F2AFA14283D820000EBA6E8 /* Extenstions */,
 				5F4536752843EE9100CEFCDB /* DataServices */,
 				5F61B74F2838E8B8009704CE /* Assets.xcassets */,
 				5F61B7512838E8B8009704CE /* LaunchScreen.storyboard */,
+				5F5BF830284BD6F90070D714 /* JSonToCoreData.xcdatamodeld */,
 			);
 			path = iOSAcademyProject;
 			sourceTree = "<group>";
@@ -285,7 +291,9 @@
 				5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */,
 				5F6C1AC42847CECF0076E467 /* FavoritesVC.swift in Sources */,
 				5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */,
+				5F5BF832284BD6F90070D714 /* JSonToCoreData.xcdatamodeld in Sources */,
 				5F6CB54F28495EB80038B84D /* PlayerListVC.swift in Sources */,
+				5F5BF834284BD85A0070D714 /* TeamDetailVC.swift in Sources */,
 				5F2AFA10283D720F00EBA6E8 /* MainNavigationController.swift in Sources */,
 				5F45367B2843FEED00CEFCDB /* UIViewController+Extensions.swift in Sources */,
 				5FD130062846ADCE001C32F5 /* ExploreVC.swift in Sources */,
@@ -532,6 +540,19 @@
 			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		5F5BF830284BD6F90070D714 /* JSonToCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5F5BF831284BD6F90070D714 /* JSonToCoreData.xcdatamodel */,
+			);
+			currentVersion = 5F5BF831284BD6F90070D714 /* JSonToCoreData.xcdatamodel */;
+			path = JSonToCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5F61B73B2838E8B7009704CE /* Project object */;
 }

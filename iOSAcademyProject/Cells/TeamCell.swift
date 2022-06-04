@@ -7,19 +7,19 @@
 
 import UIKit
 
-class TeamCellViewModel {
-    let fullName: String
-    let id: Int
-    let imageString: String
-    let conference: String
-    
-    init(fullName: String, imageName: String, id: Int, conference: String) {
-        self.fullName = fullName
-        self.imageString = imageName
-        self.id = id
-        self.conference = conference
-    }
-}
+//class TeamCellViewModel {
+//    let fullName: String
+//    let id: Int
+//    let imageString: String
+//    let conference: String
+//    
+//    init(fullName: String, imageName: String, id: Int, conference: String) {
+//        self.fullName = fullName
+//        self.imageString = imageName
+//        self.id = id
+//        self.conference = conference
+//    }
+//}
 
 class TeamCell: UITableViewCell {
     static let identifier = "TeamCell"
@@ -62,7 +62,7 @@ class TeamCell: UITableViewCell {
         teamImage.image = nil
     }
     
-    func configure(with viewModel: TeamCellViewModel) {
+    func configure(with viewModel: TeamViewModel) {
         teamLabel.text = viewModel.fullName
         teamImage.image = UIImage(named: viewModel.imageString)
     }
