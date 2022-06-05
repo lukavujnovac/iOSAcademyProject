@@ -12,7 +12,7 @@ class CoreDataManager {
     static let shared = CoreDataManager()
     var favoriteTeams: [TeamEntity] = []
     
-    func team(id: Int32, abbreviation: String, city: String, conference: String, division: String, fullName: String, name: String) -> TeamEntity {
+    func team(id: Int32, abbreviation: String, city: String, conference: String, division: String, fullName: String, name: String, isFavorite: Bool) -> TeamEntity {
         let teamE = TeamEntity(context: persistentContainer.viewContext)
         
         teamE.id = id
@@ -22,6 +22,7 @@ class CoreDataManager {
         teamE.division = division
         teamE.fullName = fullName   
         teamE.name = name
+        teamE.isFavorite = isFavorite
         favoriteTeams.append(teamE)
         saveContext()
         
@@ -47,6 +48,18 @@ class CoreDataManager {
                 let nserror = error as NSError
                 fatalError("unresolved error \(error)")
             }
+        }
+    }
+    
+    func delete(object: TeamEntity) {
+        let context = persistentContainer.viewContext
+        context.delete(object)
+        
+        do {
+            try context.save()
+        }catch {
+            let nserror = error as NSError
+            fatalError("unresolved error \(error)")
         }
     }
     

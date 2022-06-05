@@ -23,6 +23,7 @@ extension TeamEntity {
     @NSManaged public var fullName: String?
     @NSManaged public var id: Int32
     @NSManaged public var name: String?
+    @NSManaged public var isFavorite: Bool
 
 }
 

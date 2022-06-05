@@ -17,6 +17,7 @@ class TeamViewModel {
     let imageString: String
     let conference: String
     let name: String
+    var isFavorite: Bool = false
     
     init(fullName: String, id: Int, abbreviation: String, city: String, division: String, imageString: String, conference: String, name: String) {
         self.fullName = fullName

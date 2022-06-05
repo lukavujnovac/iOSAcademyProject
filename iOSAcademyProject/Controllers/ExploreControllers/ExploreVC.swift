@@ -46,9 +46,8 @@ class ExploreVC: UIViewController{
     private var teams = [Team]()
     private var filteredTeams = [Team]()
     
-    
     private var showingTeams: Bool = true
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UserDefaults.standard.changeShowingTeams(value: showingTeams)
@@ -75,7 +74,7 @@ class ExploreVC: UIViewController{
             switch result {
                 case .success(let teams):
                     self?.teams = teams
-//                    self?.saveData(context: self?.context)
+                    //                    self?.saveData(context: self?.context)
                     self?.viewModels = teams.compactMap({TeamViewModel(fullName: $0.fullName ?? "", id: $0.id ?? 0, abbreviation: $0.fullName ?? "", city: $0.city ?? "", division: $0.division ?? "", imageString: $0.name ?? "", conference: $0.conference ?? "", name: $0.name ?? "")})
                     DispatchQueue.main.async {
                         self?.table.reloadData()
@@ -122,7 +121,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = table.dequeueReusableCell(withIdentifier: TeamCell.identifier, for: indexPath) as? TeamCell else {fatalError()}
-        
+        let team = viewModels[indexPath.row]
         let currentTeam: Team 
         if isFiltering() {
             currentTeam = filteredTeams[indexPath.row]
@@ -142,15 +141,39 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
         let vc = TeamDetailVC(viewModel: viewModel)
         print(viewModel.id)
         
-        let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name)
-        
-//        CoreDataManager.shared.favoriteTeams.append(favoriteTeam)
-        tableView.reloadData()
-        CoreDataManager.shared.saveContext()
-        
         print(CoreDataManager.shared.favoriteTeams)
         
-//        navigationController?.pushViewController(vc, animated: true)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let team = viewModels[indexPath.row]
+        let favoriteActionTitle = team.isFavorite ? "already favorite" : "Favorite"
+        
+        let favoriteAction = UIContextualAction(style: .normal, title: favoriteActionTitle) { action, view ,boolValue  in
+            
+            let viewModel = self.viewModels[indexPath.row]
+            
+//            let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name, isFavorite: false )
+            
+            if !viewModel.isFavorite {
+                let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name, isFavorite: viewModel.isFavorite )
+                CoreDataManager.shared.favoriteTeams.append(favoriteTeam)
+            }
+            tableView.reloadData()
+            CoreDataManager.shared.saveContext()
+            
+            team.isFavorite = true
+        }
+        
+        favoriteAction.backgroundColor = .systemYellow
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [favoriteAction])
+        return swipeActions
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -198,7 +221,7 @@ extension ExploreVC: UISearchBarDelegate, UISearchResultsUpdating {
 } 
 
 private extension ExploreVC {
-        @objc private func logOutTapped() {
+    @objc private func logOutTapped() {
         do {
             try FirebaseAuth.Auth.auth().signOut()
             UserDefaults.standard.setIsLoggedIn(value: false)
