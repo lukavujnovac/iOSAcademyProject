@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import CoreData
 
 class ExploreVC: UIViewController{
     
@@ -45,6 +46,7 @@ class ExploreVC: UIViewController{
     private var teams = [Team]()
     private var filteredTeams = [Team]()
     
+    
     private var showingTeams: Bool = true
 
     override func viewDidLoad() {
@@ -73,6 +75,7 @@ class ExploreVC: UIViewController{
             switch result {
                 case .success(let teams):
                     self?.teams = teams
+//                    self?.saveData(context: self?.context)
                     self?.viewModels = teams.compactMap({TeamViewModel(fullName: $0.fullName ?? "", id: $0.id ?? 0, abbreviation: $0.fullName ?? "", city: $0.city ?? "", division: $0.division ?? "", imageString: $0.name ?? "", conference: $0.conference ?? "", name: $0.name ?? "")})
                     DispatchQueue.main.async {
                         self?.table.reloadData()
@@ -110,6 +113,7 @@ class ExploreVC: UIViewController{
     }
 }
 
+
 extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isFiltering() {return filteredTeams.count}
@@ -137,7 +141,16 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
         let viewModel = viewModels[indexPath.row]
         let vc = TeamDetailVC(viewModel: viewModel)
         print(viewModel.id)
-        navigationController?.pushViewController(vc, animated: true)
+        
+        let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name)
+        
+//        CoreDataManager.shared.favoriteTeams.append(favoriteTeam)
+        tableView.reloadData()
+        CoreDataManager.shared.saveContext()
+        
+        print(CoreDataManager.shared.favoriteTeams)
+        
+//        navigationController?.pushViewController(vc, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

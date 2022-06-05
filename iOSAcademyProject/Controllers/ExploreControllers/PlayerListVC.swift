@@ -66,7 +66,7 @@ class PlayerListVC: UIViewController {
                 DispatchQueue.main.async {
                     self?.playerImages = result.data
                     let playerImageUrl = result.data[0].imageUrl 
-                    self?.playerImageUrls.append(playerImageUrl)
+//                    self?.playerImageUrls.append(playerImageUrl)
                 }
             }catch {
                 print(error)
@@ -132,8 +132,9 @@ extension PlayerListVC: UIScrollViewDelegate {
                 }
                 switch result {
                     case.success(let morePlayers):
-                        self?.viewModels.append(contentsOf: morePlayers.compactMap({
-                            PlayerViewModel(id: $0.id, firstName: $0.firstName, lastName: $0.lastName, heightFeet: $0.heightFeet ?? 0, heightInches: $0.heightInches ?? 0, position: $0.position, team: $0.team, weightPounds: $0.weightPounds ?? 0)}))
+                        let moreViewModels = morePlayers.compactMap({
+                            PlayerViewModel(id: $0.id, firstName: $0.firstName, lastName: $0.lastName, heightFeet: $0.heightFeet ?? 0, heightInches: $0.heightInches ?? 0, position: $0.position, team: $0.team, weightPounds: $0.weightPounds ?? 0)})
+                        self?.viewModels.append(contentsOf: moreViewModels)
                         
                         DispatchQueue.main.async {
                             self?.table.reloadData()
@@ -143,5 +144,19 @@ extension PlayerListVC: UIScrollViewDelegate {
                 }
             }
         }
+    }
+}
+
+extension Array where Element:Equatable {
+    func removeDuplicates() -> [Element] {
+        var result = [Element]()
+
+        for value in self {
+            if result.contains(value) == false {
+                result.append(value)
+            }
+        }
+
+        return result
     }
 }

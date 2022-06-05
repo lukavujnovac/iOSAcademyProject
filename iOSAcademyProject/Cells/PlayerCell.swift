@@ -8,7 +8,11 @@
 import UIKit
 import SnapKit
 
-class PlayerViewModel {
+class PlayerViewModel: Equatable {
+    static func == (lhs: PlayerViewModel, rhs: PlayerViewModel) -> Bool {
+        return lhs.id == rhs.id && lhs.firstName == rhs.firstName && lhs.heightFeet == rhs.heightFeet && lhs.heightInches == rhs.heightInches && lhs.position == rhs.position && lhs.team == rhs.team && lhs.weightPounds == rhs.weightPounds
+    }
+    
     let id: Int
     let firstName: String
     let lastName: String
@@ -57,6 +61,8 @@ class PlayerCell: UITableViewCell {
     private let playerImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
+        iv.layer.cornerRadius = 10
         
         return iv
     }()
@@ -81,50 +87,24 @@ class PlayerCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        playerImageView.image = nil
+        playerImageView.image = nil
+        firstNameLabel.text = nil
+        lastNameLabel.text = nil
+        teamNameLabel.text = nil
     }
     
     func configure(with viewModel: PlayerViewModel) {
         firstNameLabel.text = viewModel.firstName
         lastNameLabel.text = viewModel.lastName
         teamNameLabel.text = viewModel.team.name
-        imageView?.image = UIImage(named: viewModel.team.name?.lowercased() ?? "")
-        imageView?.backgroundColor = .systemBlue
-        
-
-//        let urlString = "\(ApiCaller.Constants.playerImageURL)\(viewModel.id)"
-//        guard let url = URL(string: urlString) else {return}
-        
-//        let task = URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
-//            guard let data = data, error == nil else {return}
-//            DispatchQueue.main.async {
-//                let image = UIImage(data: data)
-////                self?.playerImageView.image = UIImage(systemName: "")
-//                self?.playerImageView.image = image
-//            }
-//        }
-//        task.resume()
-        
-//        if let data = viewModel.imageData {
-//            playerImageView.image = UIImage(data: data)
-//        }else {
-//            let urlString = viewModel.imageUrl
-//            if let url = urlString {
-//                URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
-//                    guard let data = data, error == nil else {return}
-//                    viewModel.imageData = data
-//                    DispatchQueue.main.async {
-//                        self?.playerImageView.image = UIImage(data: data)
-//                    }
-//                }.resume()
-//            }
-//        }
+        playerImageView.image = UIImage(named: viewModel.position)
+        playerImageView.backgroundColor = .systemBlue
     }
     
     private func configureConstraints() {
         playerImageView.snp.makeConstraints { 
-            $0.leading.equalToSuperview()
-            $0.width.height.equalTo(30)
+            $0.leading.equalToSuperview().offset(18)
+            $0.width.height.equalTo(120)
         }
         
         firstNameLabel.snp.makeConstraints { 

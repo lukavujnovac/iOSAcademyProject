@@ -12,10 +12,10 @@ class MainNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
+        navigationController?.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(systemName: "home"), selectedImage: UIImage(systemName: "home.fill"))
+        navigationController?.navigationBar.isHidden = false
         if isLoggedIn() {
             let vc = ExploreVC()
-            vc.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-            navigationController?.navigationBar.isHidden = false
             viewControllers = [vc]
             
         }else {

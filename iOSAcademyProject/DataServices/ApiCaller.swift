@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import AVFoundation
-
 
 final class ApiCaller {
     
@@ -54,8 +52,6 @@ final class ApiCaller {
         task.resume()
     }
     
-    
-        
     public func getTeams(completition: @escaping(Result<[Team], Error>) -> Void) {
         guard let url = Constants.allTeamsURL else {return}
         
@@ -64,6 +60,7 @@ final class ApiCaller {
                 completition(.failure(error))
             }else if let data = data {
                 do {
+                    
                     let decoder = JSONDecoder()
                     decoder.keyDecodingStrategy = .convertFromSnakeCase
                     let result = try decoder.decode(ApiTeamResponse.self, from: data)
@@ -77,33 +74,13 @@ final class ApiCaller {
         }
         task.resume()
     }
-    
-    public func getTeam(id: Int, completiton: @escaping(Result<Team, Error>) -> Void) {
-        guard let url = URL(string: "\(Constants.getTeamURL)\(id)") else {return}
-        
-        let task = URLSession.shared.dataTask(with: url) { data, _, error in
-            if let error = error {completiton(.failure(error))}
-            else if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let result = try decoder.decode(Team.self, from: data) 
-                    print(result.name)
-                }catch {
-                    completiton(.failure(error))
-                }
-            }
-        }
-        task.resume()
-    }
-    
 }
 
 struct ApiTeamResponse: Codable {
-    let data: [Team]
+    let data: [Team]    
 }
 
-struct Team: Codable {
+struct Team: Codable, Equatable {
     let id: Int?
     let abbreviation: String?
     let city: String?
@@ -134,7 +111,7 @@ struct PlayerImageApiResponse: Codable {
 
 struct PlayerImage: Codable {
 //    let playerId: Int
-    let imageUrl: String
+    let imageUrl: String?
 //    let imageCaption: String
 //    let id: Int
 }

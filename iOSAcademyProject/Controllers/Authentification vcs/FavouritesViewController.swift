@@ -34,7 +34,7 @@ class FavouritesViewController: UIViewController {
     private var continueButton = UIBarButtonItem()
     
     private var models = MockData.models
-    private var favoriteTeams = MockData.favoriteTeams
+//    private var favoriteTeams = MockData.favoriteTeams
     private var selectedTeams = [CellModel]()
     
     override func viewDidLoad() {
@@ -96,7 +96,7 @@ class FavouritesViewController: UIViewController {
         models.removeLast(range)
         selectedTeams.removeAll()
         table.reloadData()
-        favoriteTeams.removeAll()
+//        favoriteTeams.removeAll()
         resetButton.isEnabled = false
         confirmButton.isEnabled = true
     }
@@ -152,17 +152,17 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension FavouritesViewController: CollectionTableViewCellDelegate {
     func didSelectItem(with model: CollectionTableCellModel) {
-        print("selected \(model.title)")
-        
-        if favoriteTeams.contains(model.title) {
-            return
-        }else {
-            favoriteTeams.append(model.title)
-            selectedTeams.append(.collectionView(models: [model], rows: 1))
-            UserDefaults.standard.set(favoriteTeams, forKey: "favoriteTeams")
-            UserDefaults.standard.synchronize()
-        }
-        print("favorites: \(favoriteTeams) ")
+//        print("selected \(model.title)")
+//        
+//        if favoriteTeams.contains(model.title) {
+//            return
+//        }else {
+//            favoriteTeams.append(model.title)
+//            selectedTeams.append(.collectionView(models: [model], rows: 1))
+//            UserDefaults.standard.set(favoriteTeams, forKey: "favoriteTeams")
+//            UserDefaults.standard.synchronize()
+//        }
+//        print("favorites: \(favoriteTeams) ")
     }
 }
 

@@ -10,5 +10,5 @@ import Foundation
 class MockData {
     static var models = [CellModel]()
     
-    static var favoriteTeams = [String]()
+//    static var favoriteTeams = [String]()
 }
