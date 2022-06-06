@@ -13,6 +13,7 @@ class FavoritesVC: UIViewController {
     let table: UITableView = {
        let tv = UITableView()
         tv.register(TeamCell.self, forCellReuseIdentifier: TeamCell.identifier)
+        tv.register(PlayerCell.self, forCellReuseIdentifier: PlayerCell.identifier)
         
         return tv
     }()
@@ -20,7 +21,7 @@ class FavoritesVC: UIViewController {
     private let tableEmptyView = EmptyView(frame: CGRect.zero)
     
     private var favoriteTeams = CoreDataManager.shared.favoriteTeams 
-    let context = CoreDataManager.shared.persistentContainer.viewContext
+    let context = CoreDataManager.shared.persistentContainerTeams.viewContext
     var result:[TeamEntity] = []
 
     override func viewDidLoad() {
@@ -65,6 +66,10 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if indexPath.row < result.count {
+            
+        }
         guard let cell = table.dequeueReusableCell(withIdentifier: TeamCell.identifier, for: indexPath) as? TeamCell else {fatalError()}
         
         let team = result[indexPath.row]
@@ -73,6 +78,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         cell.teamLabel.text = team.fullName
         
         return cell
+        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -83,7 +89,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         switch editingStyle {
             case .delete:
                 let team = result[indexPath.row]
-                CoreDataManager.shared.delete(object: team)
+                CoreDataManager.shared.deleteTeams(object: team)
                 result.remove(at: indexPath.row)
                 table.deleteRows(at: [indexPath], with: .fade)
                 table.reloadData()
@@ -97,7 +103,7 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
-        let team = result[indexPath.row]
+//        let team = result[indexPath.row]
         let teams = result.compactMap{ TeamViewModel(fullName: $0.fullName ?? "", id: Int($0.id), abbreviation: $0.abbreviation ?? "", city: $0.city ?? "", division: $0.division ?? "", imageString: $0.name ?? "", conference: $0.conference ?? "", name: $0.name ?? "")}
         
         let viewModel = teams[indexPath.row]

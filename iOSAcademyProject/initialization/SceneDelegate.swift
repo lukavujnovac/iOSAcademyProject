@@ -48,8 +48,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func createGamesVC() -> UINavigationController {
-        let vc = GamesVC()
-        vc.tabBarItem = UITabBarItem(title: "games", image: UIImage(systemName: "circle.fill"), tag: 0)
+        let vc = GamesVC(team: nil)
+        vc.tabBarItem = UITabBarItem(title: "season", image: UIImage(systemName: "calendar"), tag: 0)
         
         return UINavigationController(rootViewController: vc)
     }

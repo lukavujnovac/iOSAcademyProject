@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import SwiftUI
 
 class TeamViewModel {
     let fullName: String
@@ -74,6 +75,19 @@ class TeamDetailVC: UIViewController {
         return label
     }()
     
+    private let gamesButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Show games", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.layer.cornerRadius = 7
+        button.tintColor = .systemBackground
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.systemBlue.cgColor
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
+        
+        return button
+    }()
+    
     let viewModel: TeamViewModel
     var conferenceTeams = [Team]()
     var teams = [Team]()
@@ -98,7 +112,14 @@ class TeamDetailVC: UIViewController {
         print(viewModel.imageString)
     }
     
-    func filterConference() {
+    @objc func didTapButton() {
+        print("show games for \(viewModel.id)")
+        
+        let vc = GamesVC(team: viewModel.id)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func filterConference() {
         conferenceTeams = teams.filter({$0.conference == viewModel.conference})
         print("conference teams: \(conferenceTeams.count)")
     }
@@ -110,6 +131,7 @@ class TeamDetailVC: UIViewController {
         view.addSubview(divisionLabel)
         view.addSubview(locationLabel)
         view.addSubview(conferenceLabel)
+        view.addSubview(gamesButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -129,7 +151,7 @@ class TeamDetailVC: UIViewController {
         }
     }
     
-    func configure(with viewModel: TeamViewModel) {
+    private func configure(with viewModel: TeamViewModel) {
         teamImageView.image = UIImage(named: viewModel.imageString.lowercased())
         teamNameLabel.text = viewModel.fullName
         divisionLabel.text = "\(viewModel.division) Division"
@@ -137,7 +159,7 @@ class TeamDetailVC: UIViewController {
         conferenceLabel.text = "\(viewModel.conference) Conference"
     }
     
-    func configureConstraints() {
+    private func configureConstraints() {
         teamImageView.snp.makeConstraints { 
             $0.leading.equalToSuperview().offset(16)
             $0.top.equalToSuperview().offset(110)
@@ -162,6 +184,13 @@ class TeamDetailVC: UIViewController {
         divisionLabel.snp.makeConstraints { 
             $0.trailing.equalToSuperview().offset(-40)
             $0.top.equalTo(teamImageView.snp.bottom).offset(28)
+        }
+        
+        gamesButton.snp.makeConstraints { 
+            $0.top.equalTo(divisionLabel.snp.bottom).offset(40)
+            $0.width.equalTo(120)
+            $0.height.equalTo(40)
+            $0.centerX.equalToSuperview()
         }
     }
 }

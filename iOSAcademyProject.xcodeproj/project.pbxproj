@@ -21,6 +21,8 @@
 		5F5BF832284BD6F90070D714 /* JSonToCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BF830284BD6F90070D714 /* JSonToCoreData.xcdatamodeld */; };
 		5F5BF834284BD85A0070D714 /* TeamDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BF833284BD85A0070D714 /* TeamDetailVC.swift */; };
 		5F5BF836284BF5F80070D714 /* PlayerDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5BF835284BF5F80070D714 /* PlayerDetailVC.swift */; };
+		5F5D3290284E734000BE1714 /* PlayerEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5D328E284E734000BE1714 /* PlayerEntity+CoreDataClass.swift */; };
+		5F5D3291284E734000BE1714 /* PlayerEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F5D328F284E734000BE1714 /* PlayerEntity+CoreDataProperties.swift */; };
 		5F61B7472838E8B7009704CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7462838E8B7009704CE /* AppDelegate.swift */; };
 		5F61B7492838E8B7009704CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B7482838E8B7009704CE /* SceneDelegate.swift */; };
 		5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F61B74A2838E8B7009704CE /* AuthVC.swift */; };
@@ -41,6 +43,7 @@
 		5FD130062846ADCE001C32F5 /* ExploreVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD130052846ADCE001C32F5 /* ExploreVC.swift */; };
 		5FD130082846B1F2001C32F5 /* ApiCaller.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD130072846B1F2001C32F5 /* ApiCaller.swift */; };
 		5FD1300A2846B77A001C32F5 /* TeamCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FD130092846B77A001C32F5 /* TeamCell.swift */; };
+		5FEDF81C284E7AF700B8AEBC /* GameDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FEDF81B284E7AF700B8AEBC /* GameDetailVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +60,8 @@
 		5F5BF831284BD6F90070D714 /* JSonToCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = JSonToCoreData.xcdatamodel; sourceTree = "<group>"; };
 		5F5BF833284BD85A0070D714 /* TeamDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamDetailVC.swift; sourceTree = "<group>"; };
 		5F5BF835284BF5F80070D714 /* PlayerDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailVC.swift; sourceTree = "<group>"; };
+		5F5D328E284E734000BE1714 /* PlayerEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		5F5D328F284E734000BE1714 /* PlayerEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayerEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		5F61B7432838E8B7009704CE /* iOSAcademyProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSAcademyProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F61B7462838E8B7009704CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F61B7482838E8B7009704CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +82,7 @@
 		5FD130052846ADCE001C32F5 /* ExploreVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVC.swift; sourceTree = "<group>"; };
 		5FD130072846B1F2001C32F5 /* ApiCaller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiCaller.swift; sourceTree = "<group>"; };
 		5FD130092846B77A001C32F5 /* TeamCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamCell.swift; sourceTree = "<group>"; };
+		5FEDF81B284E7AF700B8AEBC /* GameDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +181,7 @@
 		5F5BF837284BF88B0070D714 /* Detail vcs */ = {
 			isa = PBXGroup;
 			children = (
+				5FEDF81B284E7AF700B8AEBC /* GameDetailVC.swift */,
 				5F5BF833284BD85A0070D714 /* TeamDetailVC.swift */,
 				5F5BF835284BF5F80070D714 /* PlayerDetailVC.swift */,
 			);
@@ -220,6 +227,8 @@
 		5F905D17284D2F9E0073BF1A /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				5F5D328E284E734000BE1714 /* PlayerEntity+CoreDataClass.swift */,
+				5F5D328F284E734000BE1714 /* PlayerEntity+CoreDataProperties.swift */,
 				5F68E269284D319B00D43C21 /* TeamEntity+CoreDataClass.swift */,
 				5F68E26A284D319B00D43C21 /* TeamEntity+CoreDataProperties.swift */,
 				5F905D18284D2FAF0073BF1A /* CoreDataManager.swift */,
@@ -320,10 +329,12 @@
 				5F68E26B284D319B00D43C21 /* TeamEntity+CoreDataClass.swift in Sources */,
 				5FD1300A2846B77A001C32F5 /* TeamCell.swift in Sources */,
 				5F6CB551284966FA0038B84D /* PlayerCell.swift in Sources */,
+				5F5D3291284E734000BE1714 /* PlayerEntity+CoreDataProperties.swift in Sources */,
 				5F3E2FC42840281000AEB2EF /* Models.swift in Sources */,
 				5F2AFA0E283D652100EBA6E8 /* FavouritesViewController.swift in Sources */,
 				5F61B74B2838E8B7009704CE /* AuthVC.swift in Sources */,
 				5F4536772843EE9F00CEFCDB /* MockData.swift in Sources */,
+				5FEDF81C284E7AF700B8AEBC /* GameDetailVC.swift in Sources */,
 				5F905D19284D2FAF0073BF1A /* CoreDataManager.swift in Sources */,
 				5FD130082846B1F2001C32F5 /* ApiCaller.swift in Sources */,
 				5F2AFA12283D7F1E00EBA6E8 /* UserDefaults+Helpers.swift in Sources */,
@@ -342,6 +353,7 @@
 				5FAEBB26284E04EC000BDC83 /* GamesVC.swift in Sources */,
 				5F15C07B284BBC4100DCE6CA /* EmptyView.swift in Sources */,
 				5FB10DC9283B78D600FEB658 /* WelcomeVC.swift in Sources */,
+				5F5D3290284E734000BE1714 /* PlayerEntity+CoreDataClass.swift in Sources */,
 				5F3E2FBF2840243600AEB2EF /* CollectionTableViewCell.swift in Sources */,
 				5F2AFA0C283D5F7D00EBA6E8 /* UIKit+Exstenstions.swift in Sources */,
 				5FAEBB28284E0A28000BDC83 /* GameCell.swift in Sources */,

@@ -18,12 +18,38 @@ final class ApiCaller {
         static let playerImageURL = "https://academy-2022.dev.sofascore.com/api/v1/academy/player-image/player/"
         static let getTeamURL = "https://www.balldontlie.io/api/v1/teams/"
         static let getTeamGames = "https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]="
-        static let getAllGames = "https://www.balldontlie.io/api/v1/games?seasons[]=2021?page=1"
+        static let getAllGames = "https://www.balldontlie.io/api/v1/games?seasons[]=2021&page="
     }
     
     init() {}
     
-    public func getGames(completition: @escaping (Result<[Game], Error>) -> Void) {
+    public func getGamesForTeam(page: Int, teamId: Int ,completition: @escaping (Result<[Game], Error>) -> Void) {
+        let urlString = "\(Constants.getTeamGames)\(teamId)&page="
+        print(urlString)
+        guard let url = URL(string: urlString) else {return}
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completition(.failure(error))
+            }
+            else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(ApiGamesResponse.self, from: data)
+                    
+                    print("Games: \(result.data.count)")
+                    completition(.success(result.data))
+                    
+                }catch {
+                    completition(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    public func getGames(page: Int = 1, completition: @escaping (Result<[Game], Error>) -> Void) {
         guard let url = URL(string: Constants.getAllGames) else {return}
         
         let task = URLSession.shared.dataTask(with: url) { data, _, error in

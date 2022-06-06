@@ -121,7 +121,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = table.dequeueReusableCell(withIdentifier: TeamCell.identifier, for: indexPath) as? TeamCell else {fatalError()}
-        let team = viewModels[indexPath.row]
+//        let team = viewModels[indexPath.row]
         let currentTeam: Team 
         if isFiltering() {
             currentTeam = filteredTeams[indexPath.row]
@@ -165,7 +165,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
                 CoreDataManager.shared.favoriteTeams.append(favoriteTeam)
             }
             tableView.reloadData()
-            CoreDataManager.shared.saveContext()
+            CoreDataManager.shared.saveContextTeams()
             
             team.isFavorite = true
         }

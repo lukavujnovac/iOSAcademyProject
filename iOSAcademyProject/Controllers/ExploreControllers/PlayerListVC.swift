@@ -65,7 +65,7 @@ class PlayerListVC: UIViewController {
                 let result = try JSONDecoder().decode(PlayerImageApiResponse.self, from: data)
                 DispatchQueue.main.async {
                     self?.playerImages = result.data
-                    let playerImageUrl = result.data[0].imageUrl 
+//                    let playerImageUrl = result.data[0].imageUrl 
 //                    self?.playerImageUrls.append(playerImageUrl)
                 }
             }catch {
@@ -96,6 +96,32 @@ extension PlayerListVC: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with: viewModels[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let player = viewModels[indexPath.row]
+        let favoriteActionTitle = player.isFavorite ? "already favorite" : "Favorite"
+        
+        let favoriteAction = UIContextualAction(style: .normal, title: favoriteActionTitle) { action, view ,boolValue  in
+            
+            let viewModel = self.viewModels[indexPath.row]
+            
+//            let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name, isFavorite: false )
+            
+            if !viewModel.isFavorite {
+                let favoritePlayer = CoreDataManager.shared.player(id: Int32(viewModel.id), firstName: viewModel.firstName, lastName: viewModel.lastName, position: viewModel.position, heightFeet: Int32(viewModel.heightFeet), heightInches: Int32(viewModel.heightInches), weightPounds: Int32(viewModel.weightPounds), team: viewModel.team.name ?? "")
+                CoreDataManager.shared.favoritePlayers.append(favoritePlayer)
+            }
+            tableView.reloadData()
+            CoreDataManager.shared.saveContextTeams()
+            
+            player.isFavorite = true
+        }
+        
+        favoriteAction.backgroundColor = .systemYellow
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [favoriteAction])
+        return swipeActions
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

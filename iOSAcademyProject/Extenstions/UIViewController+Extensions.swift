@@ -28,7 +28,7 @@ extension UIViewController {
         aView = nil
     }
     
-    private func reNew(){
-        UIApplication.shared.keyWindow?.rootViewController = MainNavigationController()
-    }
+//    private func reNew(){
+//        UIApplication.shared.keyWindow?.rootViewController = MainNavigationController()
+//    }
 }

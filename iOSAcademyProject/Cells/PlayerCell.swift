@@ -21,6 +21,7 @@ class PlayerViewModel: Equatable {
     let position: String
     let team: Team
     let weightPounds: Int
+    var isFavorite: Bool = false
     
     init(id: Int, firstName: String, lastName: String, heightFeet: Int, heightInches: Int, position: String, team: Team, weightPounds: Int) {
         self.firstName = firstName
@@ -58,7 +59,7 @@ class PlayerCell: UITableViewCell {
         return label
     }()
     
-    private let playerImageView: UIImageView = {
+    let playerImageView: UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
