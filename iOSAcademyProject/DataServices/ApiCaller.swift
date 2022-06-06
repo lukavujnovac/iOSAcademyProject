@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreImage
 
 final class ApiCaller {
     
@@ -16,9 +17,35 @@ final class ApiCaller {
         static let allPLayersURL = "https://www.balldontlie.io/api/v1/players?per_page=20?page="
         static let playerImageURL = "https://academy-2022.dev.sofascore.com/api/v1/academy/player-image/player/"
         static let getTeamURL = "https://www.balldontlie.io/api/v1/teams/"
+        static let getTeamGames = "https://www.balldontlie.io/api/v1/games?seasons[]=2021&team_ids[]="
+        static let getAllGames = "https://www.balldontlie.io/api/v1/games?seasons[]=2021?page=1"
     }
     
     init() {}
+    
+    public func getGames(completition: @escaping (Result<[Game], Error>) -> Void) {
+        guard let url = URL(string: Constants.getAllGames) else {return}
+        
+        let task = URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                completition(.failure(error))
+            }
+            else if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    let result = try decoder.decode(ApiGamesResponse.self, from: data)
+                    
+                    print("Games: \(result.data.count)")
+                    completition(.success(result.data))
+                    
+                }catch {
+                    completition(.failure(error))
+                }
+            }
+        }
+        task.resume()
+    }
     
     var isPaginating = false
     
@@ -114,4 +141,22 @@ struct PlayerImage: Codable {
     let imageUrl: String?
 //    let imageCaption: String
 //    let id: Int
+}
+
+struct ApiGamesResponse: Codable {
+    let data: [Game]
+}
+
+struct Game: Codable {
+    let id: Int
+    let date: String
+    let homeTeamScore: Int
+    let visitorTeamScore: Int
+    let season: Int
+    let period: Int
+    let status: String
+    let time: String
+    let postseason: Bool
+    let homeTeam: Team
+    let visitorTeam: Team
 }

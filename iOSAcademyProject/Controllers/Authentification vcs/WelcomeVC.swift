@@ -85,7 +85,7 @@ class WelcomeVC: UIViewController {
         let authVC = AuthVC()
         authVC.modalPresentationStyle = .formSheet
         present(authVC, animated: true) 
-        //        self.navigationController?.pushViewController(authVC, animated: true)
+//        self.navigationController?.pushViewController(authVC, animated: true)
     }
     
     private func configureSkipButton() {

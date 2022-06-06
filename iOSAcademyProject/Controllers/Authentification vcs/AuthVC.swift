@@ -56,10 +56,20 @@ class AuthVC: UIViewController {
         let label = UILabel()
         label.textAlignment = .center
         label.text = "Log In"
-        label.textColor = .white
+        label.textColor = .systemBackground
         label.font = .systemFont(ofSize: 24, weight: .semibold)
         return label
     }() 
+    
+    private let hasError: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .systemRed
+        label.text = "Something went wrong, please try again."
+        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.numberOfLines = 0
+        return label
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +80,12 @@ class AuthVC: UIViewController {
         
         self.tabBarController?.tabBar.isHidden = true
         
+//        configureConstraints()
+    }
+    
+    override func viewDidLayoutSubviews() {
         configureConstraints()
+        hasError.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,6 +119,7 @@ class AuthVC: UIViewController {
         configureEmailFieldConstraints()
         configurePasswordFieldConstraints()
         configureButtonConstraints()
+        configureHasErrorConstraints()
     }
     
     private func addViews() {
@@ -111,6 +127,7 @@ class AuthVC: UIViewController {
         view.addSubview(label)
         view.addSubview(emailField)
         view.addSubview(passwordField)
+        view.addSubview(hasError)
     }
     
     private func finishLoggingIn() {
@@ -137,7 +154,7 @@ class AuthVC: UIViewController {
         
         guard let email = emailField.text, !email.isEmpty, 
                 let password = passwordField.text, !password.isEmpty  else {
-            
+            hasError.isHidden = false
             print("missing field data, password must be atleast 6 characters long")
             
             return
@@ -175,6 +192,8 @@ class AuthVC: UIViewController {
                 guard error == nil else {
                     strongSelf.removeSpinner()
                     print("account creation failed")
+                    strongSelf.hasError.isHidden = false
+                    
                     return
                 }
                 
@@ -183,14 +202,24 @@ class AuthVC: UIViewController {
                 strongSelf.emailField.resignFirstResponder()
                 strongSelf.passwordField.resignFirstResponder()
                 
-                let vc = FavouritesViewController()
-//                let navigationController = UINavigationController(rootViewController: vc)
-                strongSelf.removeSpinner()
-//                navigationController.modalPresentationStyle = .fullScreen
-                vc.navigationController?.navigationBar.barStyle = .default
-                strongSelf.present(vc, animated: true)
-                
                 UserDefaults.standard.setIsLoggedIn(value: true)
+                
+                let vc = MainNavigationController()
+    //            vc.navigationController?.navigationBar.barStyle = .default
+                vc.modalPresentationStyle = .fullScreen
+                strongSelf.removeSpinner()
+                strongSelf.present(vc, animated: true)
+                strongSelf.finishLoggingIn()
+                
+//                let vc = FavouritesViewController()
+//                let navigationController = UINavigationController(rootViewController: vc)
+//                strongSelf.removeSpinner()
+//                navigationController.modalPresentationStyle = .fullScreen
+//                vc.navigationController?.navigationBar.barStyle = .default
+//                strongSelf.present(navigationController, animated: true)
+////                strongSelf.navigationController?.pushViewController(vc, animated: true)
+                
+                
             }
         }))
         
@@ -237,6 +266,13 @@ private extension AuthVC {
             $0.top.equalTo(passwordField.snp.bottom).offset(36)
             $0.leading.trailing.equalToSuperview().inset(18)
             $0.height.equalTo(50)
+        }
+    }
+    
+    func configureHasErrorConstraints() {
+        hasError.snp.makeConstraints { 
+            $0.top.equalTo(button.snp.bottom).offset(30)
+            $0.leading.trailing.equalToSuperview().inset(18)
         }
     }
 }

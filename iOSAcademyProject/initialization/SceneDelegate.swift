@@ -20,6 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
+//        window?.rootViewController = UINavigationController(rootViewController: GamesVC())
         window?.rootViewController = createTabBar()
 //        window?.rootViewController = UINavigationController(rootViewController: TeamDetailVC(viewModel: TeamViewModel(fullName: "Lakers", id: 1, abbreviation: "LAL", city: "Los Angeles", division: "West", imageString: "Lakers", conference: "Pacific", name: "Lakers")))
         window?.makeKeyAndVisible()
@@ -27,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [createMainVC(), createFavoritesVC()]
+        tabBar.viewControllers = [createMainVC(), createFavoritesVC(), createGamesVC()]
         tabBar.tabBar.tintColor = .systemPink
         
         return tabBar
@@ -44,6 +45,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         vc.tabBarItem = UITabBarItem(title: "Explore", image: UIImage(named: "basketball"), tag: 0)
         
         return vc
+    }
+    
+    func createGamesVC() -> UINavigationController {
+        let vc = GamesVC()
+        vc.tabBarItem = UITabBarItem(title: "games", image: UIImage(systemName: "circle.fill"), tag: 0)
+        
+        return UINavigationController(rootViewController: vc)
     }
     
     func createPlayerListVC() -> UINavigationController {
