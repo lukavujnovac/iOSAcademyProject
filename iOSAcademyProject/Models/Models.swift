@@ -10,7 +10,6 @@ import Foundation
 enum CellModel {
     case collectionView(models: [CollectionTableCellModel], rows: Int)
     case list(models: [ListCellModel])
-    
 }
 
 struct ListCellModel {

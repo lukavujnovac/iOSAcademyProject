@@ -20,18 +20,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-//        window?.rootViewController = UINavigationController(rootViewController: GamesVC())
         window?.rootViewController = createTabBar()
-//        window?.rootViewController = UINavigationController(rootViewController: TeamDetailVC(viewModel: TeamViewModel(fullName: "Lakers", id: 1, abbreviation: "LAL", city: "Los Angeles", division: "West", imageString: "Lakers", conference: "Pacific", name: "Lakers")))
         window?.makeKeyAndVisible()
     }
     
     func createTabBar() -> UITabBarController {
         let tabBar = UITabBarController()
-        tabBar.viewControllers = [createMainVC(), createFavoritesVC(), createGamesVC()]
+        tabBar.viewControllers = [createMainVC(), createFavoritesVC(), createGamesVC(), createSettingsVC()]
         tabBar.tabBar.tintColor = .systemPink
         
         return tabBar
+    }
+    
+    func createSettingsVC() -> UINavigationController {
+        let vc = SettingsVC()
+        vc.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(systemName: "gear"), tag: 0)
+        
+        return UINavigationController(rootViewController: vc)
     }
     
     func createAuthVC() -> UINavigationController {

@@ -74,7 +74,7 @@ class ExploreVC: UIViewController{
             switch result {
                 case .success(let teams):
                     self?.teams = teams
-                    //                    self?.saveData(context: self?.context)
+                    
                     self?.viewModels = teams.compactMap({TeamViewModel(fullName: $0.fullName ?? "", id: $0.id ?? 0, abbreviation: $0.fullName ?? "", city: $0.city ?? "", division: $0.division ?? "", imageString: $0.name ?? "", conference: $0.conference ?? "", name: $0.name ?? "")})
                     DispatchQueue.main.async {
                         self?.table.reloadData()
@@ -121,7 +121,7 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = table.dequeueReusableCell(withIdentifier: TeamCell.identifier, for: indexPath) as? TeamCell else {fatalError()}
-//        let team = viewModels[indexPath.row]
+
         let currentTeam: Team 
         if isFiltering() {
             currentTeam = filteredTeams[indexPath.row]
@@ -157,8 +157,6 @@ extension ExploreVC: UITableViewDelegate, UITableViewDataSource  {
         let favoriteAction = UIContextualAction(style: .normal, title: favoriteActionTitle) { action, view ,boolValue  in
             
             let viewModel = self.viewModels[indexPath.row]
-            
-//            let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name, isFavorite: false )
             
             if !viewModel.isFavorite {
                 let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name, isFavorite: viewModel.isFavorite )

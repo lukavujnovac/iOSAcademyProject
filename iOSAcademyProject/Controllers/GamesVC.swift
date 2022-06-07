@@ -20,7 +20,7 @@ class GamesVC: UIViewController {
     private var viewModels = [GameViewModel]()
     
     let team: Int?
-    var pageTeam: Int = 1
+    private var pageTeam: Int = 1
     private var page = 0
     private var totalPages = 57
     private let totalPagesTeam = 4
@@ -131,19 +131,6 @@ class GamesVC: UIViewController {
     }
 }
 
-//extension GamesVC: UIScrollViewDelegate {
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let position = scrollView.contentOffset.y
-//        if position > (table.contentSize.height - 100 - scrollView.frame.size.height) {
-//            guard currentPage <= totalPagesTeam else {return}
-//            currentPage += 1
-//            guard !apiCaller.isPaginating else {return}
-//            
-////            self.table.tableFooterView = showSpinnerFooter()
-//        }
-//    }
-//}
-
 extension GamesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModels.count
@@ -158,7 +145,7 @@ extension GamesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
-//        let game = viewModels[indexPath.row]
+        
         let games = viewModels.compactMap{ GameViewModel(id: $0.id, date: $0.date, homeTeamScore: $0.homeTeamScore, visitorTeamScore: $0.visitorTeamScore, season: $0.season, period: $0.period, status: $0.status, time: $0.time, postseason: $0.postseason, homeTeam: $0.homeTeam, visitorTeam: $0.visitorTeam)}
         
         let viewModel = games[indexPath.row]

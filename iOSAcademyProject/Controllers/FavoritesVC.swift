@@ -10,10 +10,9 @@ import CoreData
 
 class FavoritesVC: UIViewController {
     
-    let table: UITableView = {
+    private let table: UITableView = {
        let tv = UITableView()
         tv.register(TeamCell.self, forCellReuseIdentifier: TeamCell.identifier)
-        tv.register(PlayerCell.self, forCellReuseIdentifier: PlayerCell.identifier)
         
         return tv
     }()
@@ -21,8 +20,8 @@ class FavoritesVC: UIViewController {
     private let tableEmptyView = EmptyView(frame: CGRect.zero)
     
     private var favoriteTeams = CoreDataManager.shared.favoriteTeams 
-    let context = CoreDataManager.shared.persistentContainerTeams.viewContext
-    var result:[TeamEntity] = []
+    private let context = CoreDataManager.shared.persistentContainer.viewContext
+    private var result:[TeamEntity] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +102,6 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         table.deselectRow(at: indexPath, animated: true)
-//        let team = result[indexPath.row]
         let teams = result.compactMap{ TeamViewModel(fullName: $0.fullName ?? "", id: Int($0.id), abbreviation: $0.abbreviation ?? "", city: $0.city ?? "", division: $0.division ?? "", imageString: $0.name ?? "", conference: $0.conference ?? "", name: $0.name ?? "")}
         
         let viewModel = teams[indexPath.row]
@@ -115,15 +113,4 @@ extension FavoritesVC: UITableViewDelegate, UITableViewDataSource {
         
         navigationController?.pushViewController(vc, animated: true)
     }
-
-    
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let deleteAction = UIContextualAction(style: .destructive, title: "remove") { action, view ,boolValue  in
-//            CoreDataManager.shared.delete(object: self.result[indexPath.row])
-//            self.table.deleteRows(at: [indexPath], with: .automatic)
-//        }
-//        
-//        let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction])
-//        return swipeActions
-//    }
 }

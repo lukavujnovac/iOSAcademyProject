@@ -79,8 +79,6 @@ class AuthVC: UIViewController {
         assignbackground()
         
         self.tabBarController?.tabBar.isHidden = true
-        
-//        configureConstraints()
     }
     
     override func viewDidLayoutSubviews() {
@@ -174,7 +172,6 @@ class AuthVC: UIViewController {
             UserDefaults.standard.setIsLoggedIn(value: true)
             
             let vc = MainNavigationController()
-//            vc.navigationController?.navigationBar.barStyle = .default
             vc.modalPresentationStyle = .fullScreen
             strongSelf.removeSpinner()
             strongSelf.present(vc, animated: true)
@@ -205,21 +202,10 @@ class AuthVC: UIViewController {
                 UserDefaults.standard.setIsLoggedIn(value: true)
                 
                 let vc = MainNavigationController()
-    //            vc.navigationController?.navigationBar.barStyle = .default
                 vc.modalPresentationStyle = .fullScreen
                 strongSelf.removeSpinner()
                 strongSelf.present(vc, animated: true)
                 strongSelf.finishLoggingIn()
-                
-//                let vc = FavouritesViewController()
-//                let navigationController = UINavigationController(rootViewController: vc)
-//                strongSelf.removeSpinner()
-//                navigationController.modalPresentationStyle = .fullScreen
-//                vc.navigationController?.navigationBar.barStyle = .default
-//                strongSelf.present(navigationController, animated: true)
-////                strongSelf.navigationController?.pushViewController(vc, animated: true)
-                
-                
             }
         }))
         

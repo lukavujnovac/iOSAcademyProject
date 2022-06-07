@@ -32,12 +32,12 @@ class EmptyView: UIView {
         fatalError("init(coder: has not been implemented")
     }
     
-    func layout() {
+    private func layout() {
         layoutLabel()
     }
     
     
-    func layoutLabel() {
+    private func layoutLabel() {
         label.frame = CGRect(x: 0, y: 0, width: 224, height: 32)
         label.center = self.center
     }

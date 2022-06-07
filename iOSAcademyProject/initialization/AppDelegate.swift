@@ -18,11 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
              print(urls[urls.count-1] as URL)
         
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.makeKeyAndVisible()
-//        
-//        window?.rootViewController = MainNavigationController()
-        
         return true
     }
 

@@ -65,8 +65,8 @@ class PlayerDetailVC: UIViewController {
     let viewModel: PlayerViewModel
     private var playerImageUrls = [String]()
     private var playerImages = [PlayerImage]()
-    var playerImageUrlString: String? = ""
-    var hasImage: Bool = false
+    private var playerImageUrlString: String? = ""
+    private var hasImage: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,7 +75,6 @@ class PlayerDetailVC: UIViewController {
         configure(with: viewModel)
         addSubviews()
         fetchPlayerImage()
-//        showSpinner()
     }
     
     init(viewModel: PlayerViewModel) {
@@ -97,7 +96,7 @@ class PlayerDetailVC: UIViewController {
         getImageUrl(for: viewModel.id)
     }
     
-    func addSubviews() {
+    private func addSubviews() {
         view.addSubview(playerImageView)
         view.addSubview(teamImageView)
         view.addSubview(teamNameLabel)
@@ -106,7 +105,7 @@ class PlayerDetailVC: UIViewController {
         view.addSubview(weightLabel)
     }
     
-    func configure(with viewModel: PlayerViewModel) {
+    private func configure(with viewModel: PlayerViewModel) {
         self.playerImageView.image = UIImage(named: viewModel.position)
         self.teamImageView.image = UIImage(named: viewModel.team.name?.lowercased() ?? "")
         self.teamNameLabel.text = viewModel.team.fullName
@@ -115,7 +114,7 @@ class PlayerDetailVC: UIViewController {
         self.weightLabel.text = "Weight: \(viewModel.weightPounds) lbs"
     }
     
-    func configureConstraints() {
+    private func configureConstraints() {
         playerImageView.snp.makeConstraints { 
             $0.width.equalTo(343)
             $0.height.equalTo(328)
@@ -148,7 +147,7 @@ class PlayerDetailVC: UIViewController {
         }
     }
     
-    func getImageUrl(for id: Int){
+    private func getImageUrl(for id: Int){
         let urlString = "\(ApiCaller.Constants.playerImageURL)\(id)"
         guard let url = URL(string: urlString) else {return}
         let task = URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
@@ -170,7 +169,7 @@ class PlayerDetailVC: UIViewController {
         task.resume()
     }
     
-    func fetchPlayerImage() {
+    private func fetchPlayerImage() {
         guard let url = URL(string: playerImageUrlString!) else {return}
         let getDataTask = URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let data = data, error == nil else {return}

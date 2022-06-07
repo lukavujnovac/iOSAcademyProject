@@ -7,20 +7,6 @@
 
 import UIKit
 
-//class TeamCellViewModel {
-//    let fullName: String
-//    let id: Int
-//    let imageString: String
-//    let conference: String
-//    
-//    init(fullName: String, imageName: String, id: Int, conference: String) {
-//        self.fullName = fullName
-//        self.imageString = imageName
-//        self.id = id
-//        self.conference = conference
-//    }
-//}
-
 class TeamCell: UITableViewCell {
     static let identifier = "TeamCell"
     

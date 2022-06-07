@@ -34,7 +34,6 @@ class FavouritesViewController: UIViewController {
     private var continueButton = UIBarButtonItem()
     
     private var models = MockData.models
-//    private var favoriteTeams = MockData.favoriteTeams
     private var selectedTeams = [CellModel]()
     
     override func viewDidLoad() {
@@ -135,7 +134,6 @@ extension FavouritesViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        tableView.deselectRow(at: indexPath, animated: true)
         print("did select normal list item")
         table.reloadData()
     }

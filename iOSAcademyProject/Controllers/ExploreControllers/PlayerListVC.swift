@@ -31,7 +31,6 @@ class PlayerListVC: UIViewController {
         table.delegate = self
         table.dataSource = self
         showSpinner()
-//        navigationItem.searchController = searchController
         
         ApiCaller.shared.getPlayers(pagination: false, page: currentPage) { [weak self] result in
             switch result {
@@ -56,7 +55,7 @@ class PlayerListVC: UIViewController {
         removeSpinner()
     }
     
-    func fetchPlayerPhotos(for id: Int){
+    private func fetchPlayerPhotos(for id: Int){
         let urlString = "\(ApiCaller.Constants.playerImageURL)\(id)"
         guard let url = URL(string: urlString) else {return}
         let task = URLSession.shared.dataTask(with: url) {[weak self] data, _, error in
@@ -65,8 +64,6 @@ class PlayerListVC: UIViewController {
                 let result = try JSONDecoder().decode(PlayerImageApiResponse.self, from: data)
                 DispatchQueue.main.async {
                     self?.playerImages = result.data
-//                    let playerImageUrl = result.data[0].imageUrl 
-//                    self?.playerImageUrls.append(playerImageUrl)
                 }
             }catch {
                 print(error)
@@ -86,12 +83,6 @@ extension PlayerListVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = table.dequeueReusableCell(withIdentifier: PlayerCell.identifier, for: indexPath) as? PlayerCell else {fatalError()}
-        //        if playerImageUrls.isEmpty {
-        //            cell.configure(with: viewModels[indexPath.row], for: "")
-        //            fetchPlayerPhotos(for: viewModels[indexPath.row].id)
-        //        }else {
-        //            cell.configure(with: viewModels[indexPath.row], for: playerImageUrls[0] ?? "")
-        //        }
         
         cell.configure(with: viewModels[indexPath.row])
         
@@ -105,8 +96,6 @@ extension PlayerListVC: UITableViewDelegate, UITableViewDataSource {
         let favoriteAction = UIContextualAction(style: .normal, title: favoriteActionTitle) { action, view ,boolValue  in
             
             let viewModel = self.viewModels[indexPath.row]
-            
-//            let favoriteTeam = CoreDataManager.shared.team(id: Int32(viewModel.id), abbreviation: viewModel.abbreviation, city: viewModel.city, conference: viewModel.conference, division: viewModel.division, fullName: viewModel.fullName, name: viewModel.name, isFavorite: false )
             
             if !viewModel.isFavorite {
                 let favoritePlayer = CoreDataManager.shared.player(id: Int32(viewModel.id), firstName: viewModel.firstName, lastName: viewModel.lastName, position: viewModel.position, heightFeet: Int32(viewModel.heightFeet), heightInches: Int32(viewModel.heightInches), weightPounds: Int32(viewModel.weightPounds), team: viewModel.team.name ?? "")

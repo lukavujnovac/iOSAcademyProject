@@ -14,7 +14,7 @@ class CoreDataManager {
     var favoritePlayers: [PlayerEntity] = []
     
     func player(id: Int32, firstName: String, lastName: String, position: String, heightFeet: Int32, heightInches: Int32, weightPounds: Int32, team: String) -> PlayerEntity{
-        let playerE = PlayerEntity(context: persistentContainerTeams.viewContext)
+        let playerE = PlayerEntity(context: persistentContainer.viewContext)
         
         playerE.id = id
         playerE.firstName = firstName
@@ -29,7 +29,7 @@ class CoreDataManager {
     }
     
     func team(id: Int32, abbreviation: String, city: String, conference: String, division: String, fullName: String, name: String, isFavorite: Bool) -> TeamEntity {
-        let teamE = TeamEntity(context: persistentContainerTeams.viewContext)
+        let teamE = TeamEntity(context: persistentContainer.viewContext)
         
         teamE.id = id
         teamE.abbreviation = abbreviation
@@ -45,7 +45,7 @@ class CoreDataManager {
         return teamE
     }
     
-    lazy var  persistentContainerTeams: NSPersistentContainer = {
+    lazy var  persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "JSonToCoreData")
         container.loadPersistentStores { storedescription, error in
             if let error = error as NSError? {
@@ -56,7 +56,7 @@ class CoreDataManager {
     }()  
     
     func saveContextTeams() {
-        let context = persistentContainerTeams.viewContext
+        let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
@@ -68,9 +68,8 @@ class CoreDataManager {
     }
     
     func deleteTeams(object: TeamEntity) {
-        let context = persistentContainerTeams.viewContext
+        let context = persistentContainer.viewContext
         context.delete(object)
-        
         do {
             try context.save()
         }catch {
@@ -79,8 +78,23 @@ class CoreDataManager {
         }
     }
     
+    func deleteAllTeams(in entity: String) {
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        let context = persistentContainer.viewContext
+        do
+        {
+            try context.execute(deleteRequest)
+            try context.save()
+        }catch
+        {
+            let nserror = error as NSError
+            fatalError("unresolved error \(nserror)")
+        }
+    }
+    
     func deletePlayers(object: PlayerEntity) {
-        let context = persistentContainerTeams.viewContext
+        let context = persistentContainer.viewContext
         context.delete(object)
         
         do {
@@ -97,7 +111,7 @@ class CoreDataManager {
         var fetchedTeams: [TeamEntity] = []
         
         do {
-            fetchedTeams = try persistentContainerTeams.viewContext.fetch(request)
+            fetchedTeams = try persistentContainer.viewContext.fetch(request)
         }catch {
             print("error fetching teams")
         }
@@ -111,7 +125,7 @@ class CoreDataManager {
         var fetchedPlayers: [PlayerEntity] = []
         
         do {
-            fetchedPlayers = try persistentContainerTeams.viewContext.fetch(request)
+            fetchedPlayers = try persistentContainer.viewContext.fetch(request)
         } catch {
             print("error fetching players")
         }

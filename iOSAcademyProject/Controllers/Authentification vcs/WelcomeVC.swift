@@ -81,7 +81,7 @@ class WelcomeVC: UIViewController {
         signInButton.addTarget(self, action: #selector(didTapSignIn), for: .touchUpInside)
     }
     
-    @objc func didTapSignIn() {
+    @objc private func didTapSignIn() {
         let authVC = AuthVC()
         authVC.modalPresentationStyle = .formSheet
         present(authVC, animated: true) 
@@ -92,7 +92,7 @@ class WelcomeVC: UIViewController {
         skipButton.addTarget(self, action: #selector(didTapSkip), for: .touchUpInside)
     }
     
-    @objc func didTapSkip() {
+    @objc private func didTapSkip() {
         UserDefaults.standard.setIsLoggedIn(value: true)
         let homeVC = MainNavigationController()
         homeVC.modalPresentationStyle = .fullScreen
