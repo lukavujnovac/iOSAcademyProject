@@ -24,7 +24,7 @@ final class ApiCaller {
     init() {}
     
     public func getGamesForTeam(page: Int, teamId: Int ,completition: @escaping (Result<[Game], Error>) -> Void) {
-        let urlString = "\(Constants.getTeamGames)\(teamId)&page="
+        let urlString = "\(Constants.getTeamGames)\(teamId)&page=\(page)"
         print(urlString)
         guard let url = URL(string: urlString) else {return}
         

@@ -20,9 +20,10 @@ class GamesVC: UIViewController {
     private var viewModels = [GameViewModel]()
     
     let team: Int?
-//    var page: Int = 1
-    private var currentPage = 0
-    private let totalPages = 151
+    var pageTeam: Int = 1
+    private var page = 0
+    private var totalPages = 57
+    private let totalPagesTeam = 4
     private let apiCaller = ApiCaller()
     
     init(team: Int?) {
@@ -79,14 +80,13 @@ class GamesVC: UIViewController {
                 }
             }
         }else {
-            ApiCaller.shared.getGamesForTeam(page: 1, teamId: team ?? 0) { [weak self] result in
+            ApiCaller.shared.getGamesForTeam(page: pageTeam, teamId: team ?? 0) { [weak self] result in
                 switch result {
                     case .success(let games):
                         self?.viewModels = games.compactMap({GameViewModel(id: $0.id, date: $0.date, homeTeamScore: $0.homeTeamScore, visitorTeamScore: $0.visitorTeamScore, season: $0.season, period: $0.period, status: $0.status, time: $0.time, postseason: $0.postseason, homeTeam: $0.homeTeam, visitorTeam: $0.visitorTeam)})
                         
                         DispatchQueue.main.async {
                             self?.table.reloadData()
-                            self?.removeSpinner()
                         }
                         
                     case .failure(let error):
@@ -107,24 +107,23 @@ class GamesVC: UIViewController {
     }
 
     
-//    private func getMoreTeamGames(page: Int) {
-//        ApiCaller.shared.getGamesForTeam(page: page, teamId: team ?? 0) { [weak self] result in
-//            switch result {
-//                case .success(let games):
-//                    let moreGames = games.compactMap({GameViewModel(id: $0.id, date: $0.date, homeTeamScore: $0.homeTeamScore, visitorTeamScore: $0.visitorTeamScore, season: $0.season, period: $0.period, status: $0.status, time: $0.time, postseason: $0.postseason, homeTeam: $0.homeTeam, visitorTeam: $0.visitorTeam)})
-//                    
-//                    self?.viewModels.append(contentsOf: moreGames)
-//                    
-//                    DispatchQueue.main.async {
-//                        self?.table.reloadData()
-//                        self?.removeSpinner()
-//                    }
-//                    
-//                case .failure(let error):
-//                    print("error: \(error)")
-//            }
-//        }
-//    }
+    private func getMoreTeamGames(page: Int) {
+        ApiCaller.shared.getGamesForTeam(page: page, teamId: team ?? 0) { [weak self] result in
+            switch result {
+                case .success(let games):
+                    let moreGames = games.compactMap({GameViewModel(id: $0.id, date: $0.date, homeTeamScore: $0.homeTeamScore, visitorTeamScore: $0.visitorTeamScore, season: $0.season, period: $0.period, status: $0.status, time: $0.time, postseason: $0.postseason, homeTeam: $0.homeTeam, visitorTeam: $0.visitorTeam)})
+                    
+                    self?.viewModels.append(contentsOf: moreGames)
+                    
+                    DispatchQueue.main.async {
+                        self?.table.reloadData()
+                    }
+                    
+                case .failure(let error):
+                    print("error: \(error)")
+            }
+        }
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -132,18 +131,18 @@ class GamesVC: UIViewController {
     }
 }
 
-extension GamesVC: UIScrollViewDelegate {
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let position = scrollView.contentOffset.y
-        if position > (table.contentSize.height - 100 - scrollView.frame.size.height) {
-            guard currentPage <= totalPages else {return}
-            currentPage += 1
-            guard !apiCaller.isPaginating else {return}
-            
-//            self.table.tableFooterView = showSpinnerFooter()
-        }
-    }
-}
+//extension GamesVC: UIScrollViewDelegate {
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let position = scrollView.contentOffset.y
+//        if position > (table.contentSize.height - 100 - scrollView.frame.size.height) {
+//            guard currentPage <= totalPagesTeam else {return}
+//            currentPage += 1
+//            guard !apiCaller.isPaginating else {return}
+//            
+////            self.table.tableFooterView = showSpinnerFooter()
+//        }
+//    }
+//}
 
 extension GamesVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -172,5 +171,22 @@ extension GamesVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastItem = viewModels.count - 3
+        if indexPath.row == lastItem { 
+            table.tableFooterView = showSpinnerFooter()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { 
+                
+                if self.pageTeam < self.totalPagesTeam {
+                    self.pageTeam += 1   
+                    self.table.tableFooterView = .none
+                    self.getMoreTeamGames(page: self.pageTeam)
+                } 
+                self.table.reloadData()
+                self.table.tableFooterView = nil
+            }
+        }
     }
 }
