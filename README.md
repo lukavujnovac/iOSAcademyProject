@@ -6,7 +6,7 @@ Develop an app that tracks NBA season
 
 ## Tools used
 
-SnapKit, CoreData, UIKit, FireBase, SDWebImage
+SnapKit, CoreData, UIKit, FireBase, SDWebImage, UserDefaults
 
 ## Architecture
 
@@ -20,7 +20,7 @@ Data is fetched from API - https://www.balldontlie.io/#introduction (all players
 Application creates it's UI using UIKit with additional libraries.
 
 ## Bugs
-major bugs: After logging in the app displays ExploreVC without tabbar
+major bugs: After logging in the app displays ExploreVC without tabbar (works after app restart)
 
 minor/solved bugs: Pagingation with players showing all items after paging, when should show only items fetched from new page. (solved with games for teams)
 
